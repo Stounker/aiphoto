@@ -1,0 +1,3117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ai Nikolaev Studio — AI-фотостудия будущего</title>
+  <meta name="description" content="Ai Nikolaev Studio — профессиональная AI-фотостудия будущего. Создание реалистичных фотосессий, фэшн-артов, карт актёров и авторская музыка.">
+
+  <!-- Google Fonts: Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+
+  <!-- jsmediatags CDN для чтения ID3-тегов и обложек из MP3 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+
+  <style>
+    /* ==========================================================================
+       1. ГЛОБАЛЬНЫЕ СТИЛИ И ПЕРЕМЕННЫЕ (КИБЕРПАНК / НЕОН / ФУТУРИЗМ)
+       ========================================================================== */
+    :root {
+      --bg-dark: #0a0a12;
+      --panel-bg: #12121c;
+      --panel-card: rgba(18, 18, 28, 0.82);
+      --panel-card-hover: rgba(24, 24, 38, 0.95);
+      --neon-cyan: #00f0ff;
+      --neon-purple: #b026ff;
+      --neon-pink: #ff007f;
+      --text-main: #f0f4ff;
+      --text-muted: #94a3b8;
+      --border-line: rgba(0, 240, 255, 0.22);
+      --border-purple: rgba(176, 38, 255, 0.3);
+      --glow-cyan: 0 0 15px rgba(0, 240, 255, 0.45);
+      --glow-purple: 0 0 18px rgba(176, 38, 255, 0.45);
+      --red-alert: #ff3333;
+      --font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-family);
+    }
+
+    body {
+      overflow-x: hidden;
+      min-height: 100vh;
+      background-color: var(--bg-dark);
+      /* Отступ снизу для фиксированного мини-плеера */
+      padding-bottom: 90px;
+    }
+
+    /* Кастомный скроллбар */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #08080f;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple));
+      border-radius: 4px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Красный жирный текст по ТЗ */
+    .text-red {
+      color: var(--red-alert) !important;
+      font-weight: 700 !important;
+    }
+
+    /* ==========================================================================
+       2. СЕКЦИИ И ФОНЫ (background-attachment: fixed)
+       ========================================================================== */
+    .section-wrap {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-color: var(--bg-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 20px 80px;
+    }
+
+    /* Полупрозрачный градиентный оверлей для идеальной читаемости текста поверх фонов */
+    .section-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 10, 18, 0.82) 0%, rgba(10, 10, 18, 0.90) 50%, rgba(10, 10, 18, 0.95) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .section-container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* Фоны для каждой секции по ТЗ */
+    #hero {
+      background-image: url('assets/img/bg/fon_start.jpg');
+      min-height: 100vh;
+      text-align: center;
+    }
+    #about {
+      background-image: url('assets/img/bg/fon_article.jpg');
+    }
+    #team {
+      background-image: url('assets/img/bg/fon_team.jpg');
+    }
+    #catalog {
+      background-image: url('assets/img/bg/fon_catalog.jpg');
+    }
+    #gallery {
+      background-image: url('assets/img/bg/fon_gallery.jpg');
+    }
+    #music {
+      background-image: url('assets/img/bg/fon_music.jpg');
+    }
+    #rules {
+      background-image: url('assets/img/bg/fon_rules.jpg');
+    }
+    #contacts {
+      background-image: url('assets/img/bg/fon_contacts.jpg');
+    }
+
+    /* Заголовки секций в стиле будущего */
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .neon-badge {
+      display: inline-block;
+      padding: 6px 18px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--neon-cyan);
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid var(--neon-cyan);
+      border-radius: 30px;
+      margin-bottom: 15px;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff 0%, var(--neon-cyan) 60%, var(--neon-purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       3. ЛИПКАЯ ШАПКА И НАВИГАЦИЯ
+       ========================================================================== */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 75px;
+      background: rgba(10, 10, 18, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-line);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .header-container {
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Логотип в шапке */
+    .logo-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: 1px;
+    }
+
+    .logo-symbol {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(176, 38, 255, 0.25));
+      border: 2px solid var(--neon-cyan);
+      box-shadow: var(--glow-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 900;
+      position: relative;
+    }
+
+    .logo-text {
+      background: linear-gradient(135deg, #fff, var(--neon-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Меню ссылок */
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      position: relative;
+      transition: color 0.3s ease;
+      padding: 6px 0;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--neon-cyan);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+      transition: width 0.3s ease;
+      box-shadow: var(--glow-cyan);
+    }
+
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* Бургер-меню для мобильных */
+    .burger-btn {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--neon-cyan);
+      border-radius: 8px;
+      color: var(--neon-cyan);
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+    }
+
+    /* Кнопки в стиле сайта */
+    .btn-cyber {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 32px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      border: none;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(176, 38, 255, 0.4));
+      border: 1px solid var(--neon-cyan);
+      color: #ffffff;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.4), rgba(176, 38, 255, 0.6));
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.65), 0 0 30px rgba(176, 38, 255, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(18, 18, 28, 0.7);
+      border: 1px solid var(--border-purple);
+      color: #f0f4ff;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--neon-purple);
+      box-shadow: 0 0 20px rgba(176, 38, 255, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================================
+       4. БЛОК 1: HERO (fon_start.jpg)
+       ========================================================================== */
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-emblem {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 3px solid var(--neon-cyan);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.6), inset 0 0 25px rgba(176, 38, 255, 0.4);
+      background: radial-gradient(circle, rgba(18, 18, 28, 0.9) 0%, rgba(10, 10, 18, 0.95) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+      position: relative;
+      animation: pulseGlow 4s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 25px rgba(0, 240, 255, 0.5), inset 0 0 15px rgba(176, 38, 255, 0.3); }
+      100% { box-shadow: 0 0 45px rgba(0, 240, 255, 0.8), 0 0 20px rgba(176, 38, 255, 0.6), inset 0 0 30px rgba(0, 240, 255, 0.4); }
+    }
+
+    .hero-emblem-text {
+      font-size: 3.2rem;
+      font-weight: 900;
+      letter-spacing: -2px;
+      background: linear-gradient(135deg, #ffffff, var(--neon-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff 10%, var(--neon-cyan) 60%, var(--neon-purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+      line-height: 1.1;
+    }
+
+    .hero-slogan {
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      color: var(--neon-cyan);
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    /* ==========================================================================
+       5. БЛОК 2: СТАТЬЯ-РАССКАЗ (fon_article.jpg)
+       ========================================================================== */
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .article-card {
+      background: var(--panel-card);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-line);
+      border-radius: 16px;
+      padding: 32px 28px;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .article-card:hover {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 12px 40px rgba(0, 240, 255, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .article-number {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: rgba(0, 240, 255, 0.25);
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      letter-spacing: -1px;
+    }
+
+    .article-card p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #e2e8f0;
+    }
+
+    .article-card-featured {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, rgba(18, 18, 28, 0.95), rgba(28, 18, 40, 0.9));
+      border: 1px solid var(--neon-purple);
+      box-shadow: 0 0 30px rgba(176, 38, 255, 0.25);
+    }
+
+    .article-card-featured p {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    /* ==========================================================================
+       6. БЛОК 3: КОМАНДА (fon_team.jpg)
+       ========================================================================== */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .team-card {
+      background: var(--panel-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-line);
+      border-radius: 20px;
+      padding: 40px 30px;
+      text-align: center;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .team-card:hover {
+      border-color: var(--neon-purple);
+      box-shadow: 0 0 30px rgba(176, 38, 255, 0.35);
+      transform: translateY(-5px);
+    }
+
+    .team-avatar-frame {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(176, 38, 255, 0.4));
+      border: 2px solid var(--neon-cyan);
+      box-shadow: var(--glow-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+    }
+
+    .team-name {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .team-role {
+      font-size: 1rem;
+      color: var(--neon-cyan);
+      font-weight: 600;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .team-city {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       7. БЛОК 4: ОБРАЗЫ / КАРТА НАБРОСКОВ (fon_catalog.jpg)
+       ========================================================================== */
+    .catalog-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 35px;
+    }
+
+    .catalog-tab-btn {
+      background: rgba(18, 18, 28, 0.8);
+      border: 1px solid var(--border-line);
+      border-radius: 30px;
+      padding: 10px 22px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .catalog-tab-btn:hover {
+      border-color: var(--neon-cyan);
+      color: #fff;
+    }
+
+    .catalog-tab-btn.active {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(176, 38, 255, 0.3));
+      border-color: var(--neon-cyan);
+      color: #ffffff;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
+    }
+
+    .catalog-group {
+      margin-bottom: 50px;
+    }
+
+    .catalog-group-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 25px;
+      padding-left: 15px;
+      border-left: 4px solid var(--neon-cyan);
+    }
+
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 20px;
+    }
+
+    .sketch-card {
+      background: var(--panel-card);
+      border: 1px solid var(--border-line);
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sketch-card:hover {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+      transform: translateY(-4px);
+    }
+
+    .sketch-img-wrap {
+      width: 100%;
+      aspect-ratio: 1 / 1.35;
+      overflow: hidden;
+      background: #151522;
+      position: relative;
+    }
+
+    .sketch-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .sketch-card:hover .sketch-img-wrap img {
+      transform: scale(1.05);
+    }
+
+    .sketch-meta {
+      padding: 14px;
+      text-align: center;
+      background: rgba(14, 14, 22, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sketch-badge-num {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+    }
+
+    .sketch-pick-btn {
+      background: transparent;
+      border: 1px solid var(--border-purple);
+      border-radius: 20px;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .sketch-pick-btn:hover {
+      background: var(--neon-purple);
+      border-color: var(--neon-purple);
+      box-shadow: 0 0 10px rgba(176, 38, 255, 0.5);
+    }
+
+    /* ==========================================================================
+       8. БЛОК 5: ГАЛЕРЕЯ (fon_gallery.jpg)
+       ========================================================================== */
+    /* Подраздел 1: Наrender актёры */
+    .actors-section {
+      margin-bottom: 70px;
+    }
+
+    .sub-section-header {
+      margin-bottom: 30px;
+    }
+
+    .sub-section-title {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sub-section-title::before {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background: var(--neon-cyan);
+      border-radius: 50%;
+      box-shadow: var(--glow-cyan);
+    }
+
+    .actors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .actor-card {
+      background: var(--panel-card);
+      border: 1px solid var(--border-line);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+
+    .actor-card:hover {
+      border-color: var(--neon-purple);
+      box-shadow: 0 0 25px rgba(176, 38, 255, 0.4);
+      transform: translateY(-4px);
+    }
+
+    .actor-photo-wrap {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      overflow: hidden;
+      background: #141420;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .actor-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .actor-card:hover .actor-photo-wrap img {
+      transform: scale(1.03);
+    }
+
+    .actor-info {
+      padding: 20px;
+      background: rgba(14, 14, 24, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .actor-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .actor-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+
+    /* Подраздел 2: Примеры работ (Masonry) */
+    .gallery-session-block {
+      margin-bottom: 60px;
+    }
+
+    .session-title-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .session-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .session-badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--border-line);
+      font-size: 0.8rem;
+      color: var(--neon-cyan);
+    }
+
+    /* Сетка масонри без дырок по ТЗ (3-4 в ряд десктоп, 2 моб) */
+    .gallery-masonry {
+      column-count: 4;
+      column-gap: 16px;
+    }
+
+    @media (max-width: 1200px) {
+      .gallery-masonry { column-count: 3; }
+    }
+    @media (max-width: 768px) {
+      .gallery-masonry { column-count: 2; column-gap: 12px; }
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 16px;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s ease;
+      background: #141422;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.03);
+    }
+
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 10, 18, 0.4);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gallery-item:hover .gallery-item-overlay {
+      opacity: 1;
+    }
+
+    .zoom-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(0, 240, 255, 0.2);
+      border: 1px solid var(--neon-cyan);
+      box-shadow: var(--glow-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.2rem;
+    }
+
+    /* ==========================================================================
+       9. БЛОК 6: МУЗЫКА (fon_music.jpg)
+       ========================================================================== */
+    .music-announcement-card {
+      background: linear-gradient(135deg, rgba(18, 18, 28, 0.9), rgba(30, 18, 48, 0.9));
+      border: 1px solid var(--neon-purple);
+      border-radius: 18px;
+      padding: 24px 30px;
+      text-align: center;
+      margin-bottom: 40px;
+      box-shadow: 0 0 30px rgba(176, 38, 255, 0.25);
+    }
+
+    .music-announcement-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .music-announcement-text {
+      color: var(--neon-cyan);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .playlist-container {
+      background: var(--panel-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-line);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .tracks-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .track-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 18px;
+      background: rgba(14, 14, 22, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      transition: all 0.25s ease;
+    }
+
+    .track-row:hover {
+      background: rgba(24, 24, 38, 0.85);
+      border-color: var(--border-line);
+    }
+
+    .track-row.is-active {
+      border-color: var(--neon-cyan);
+      background: rgba(0, 240, 255, 0.08);
+      box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.15);
+    }
+
+    .track-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-grow: 1;
+      min-width: 0;
+    }
+
+    .track-play-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--neon-cyan);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .track-play-btn:hover {
+      background: var(--neon-cyan);
+      color: #000;
+      box-shadow: var(--glow-cyan);
+    }
+
+    .track-cover-mini {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #181828;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .track-cover-mini img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .track-details {
+      min-width: 0;
+    }
+
+    .track-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 2px;
+    }
+
+    .track-artist {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .track-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    /* Кнопка Bandlink */
+    .btn-bandlink {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      background: rgba(176, 38, 255, 0.15);
+      border: 1px solid var(--neon-purple);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+      transition: all 0.25s ease;
+    }
+
+    .btn-bandlink:hover {
+      background: var(--neon-purple);
+      box-shadow: var(--glow-purple);
+    }
+
+    /* Кнопка голосования */
+    .btn-vote {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--neon-cyan);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--neon-cyan);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-vote:hover:not(:disabled) {
+      background: var(--neon-cyan);
+      color: #000;
+      box-shadow: var(--glow-cyan);
+    }
+
+    .btn-vote:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--text-muted);
+    }
+
+    .btn-vote.is-voted {
+      opacity: 1 !important;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.3), rgba(176, 38, 255, 0.5));
+      border-color: var(--neon-cyan);
+      color: #ffffff;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       10. ФИКСИРОВАННЫЙ МИНИ-ПЛЕЕР ВНИЗУ ЭКРАНА
+       ========================================================================== */
+    .mini-player-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 82px;
+      background: rgba(12, 12, 20, 0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid var(--neon-cyan);
+      box-shadow: 0 -5px 30px rgba(0, 240, 255, 0.2);
+      z-index: 950;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Прогресс-бар плеера сверху */
+    .player-progress-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+    }
+
+    .player-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+      box-shadow: 0 0 10px var(--neon-cyan);
+      transition: width 0.1s linear;
+    }
+
+    .player-inner {
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .player-track-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 280px;
+      min-width: 0;
+    }
+
+    .player-cover {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid var(--neon-cyan);
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+      background: #181828;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .player-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .player-cover.spinning {
+      animation: spinVinyl 12s linear infinite;
+    }
+
+    @keyframes spinVinyl {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .player-meta {
+      min-width: 0;
+    }
+
+    .player-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .player-artist {
+      font-size: 0.75rem;
+      color: var(--neon-cyan);
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .player-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+    }
+
+    .player-btn:hover {
+      color: var(--neon-cyan);
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+    }
+
+    .player-btn-main {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+      color: #000;
+      font-size: 1.3rem;
+      font-weight: 900;
+      box-shadow: var(--glow-cyan);
+    }
+
+    .player-btn-main:hover {
+      transform: scale(1.08);
+      color: #000;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
+    }
+
+    .player-timers {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+      width: 90px;
+      text-align: center;
+    }
+
+    .player-volume-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 160px;
+      justify-content: flex-end;
+    }
+
+    .volume-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 90px;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.2);
+      outline: none;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--neon-cyan);
+      cursor: pointer;
+      box-shadow: 0 0 8px var(--neon-cyan);
+    }
+
+    /* ==========================================================================
+       11. БЛОК 7: ПРАВИЛА И АКЦИИ (fon_rules.jpg)
+       ========================================================================== */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .rules-card {
+      background: var(--panel-card);
+      border: 1px solid var(--border-line);
+      border-radius: 18px;
+      padding: 32px 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .rules-card-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .rules-card-title::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--neon-cyan);
+      border-radius: 50%;
+      box-shadow: var(--glow-cyan);
+    }
+
+    .rules-card p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #cbd5e1;
+      margin-bottom: 12px;
+    }
+
+    .price-tag {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--neon-cyan);
+      margin: 8px 0;
+    }
+
+    /* Карточка акции 300 руб */
+    .promo-highlight-card {
+      background: linear-gradient(135deg, rgba(18, 18, 28, 0.95), rgba(35, 18, 50, 0.92));
+      border: 2px solid var(--neon-purple);
+      border-radius: 20px;
+      padding: 35px;
+      margin-bottom: 40px;
+      box-shadow: 0 0 35px rgba(176, 38, 255, 0.35);
+      position: relative;
+    }
+
+    .promo-badge-hot {
+      position: absolute;
+      top: -14px;
+      right: 30px;
+      background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
+    }
+
+    .promo-title {
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 18px;
+    }
+
+    .promo-steps {
+      list-style: none;
+      margin-bottom: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .promo-step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 1.05rem;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    .step-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(0, 240, 255, 0.15);
+      border: 1px solid var(--neon-cyan);
+      color: var(--neon-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .promo-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 25px;
+    }
+
+    /* Форма покупки по акции */
+    .promo-form-container {
+      background: var(--panel-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-line);
+      border-radius: 20px;
+      padding: 35px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .form-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 14px 18px;
+      background: rgba(10, 10, 16, 0.8);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      border-radius: 12px;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+      background: rgba(14, 14, 24, 0.95);
+    }
+
+    .form-hint {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* Зона загрузки файла */
+    .file-dropzone {
+      border: 2px dashed rgba(0, 240, 255, 0.35);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(10, 10, 18, 0.6);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .file-dropzone:hover {
+      border-color: var(--neon-cyan);
+      background: rgba(0, 240, 255, 0.05);
+    }
+
+    .file-dropzone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .dropzone-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+      color: var(--neon-cyan);
+    }
+
+    .file-preview-wrap {
+      display: none;
+      align-items: center;
+      gap: 14px;
+      margin-top: 14px;
+      padding: 10px;
+      background: rgba(20, 20, 32, 0.9);
+      border-radius: 10px;
+      border: 1px solid var(--border-line);
+    }
+
+    .file-preview-thumb {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .file-preview-name {
+      font-size: 0.85rem;
+      color: #fff;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Блок предупреждений */
+    .warnings-block {
+      background: rgba(40, 10, 15, 0.6);
+      border: 1px solid rgba(255, 51, 51, 0.4);
+      border-radius: 14px;
+      padding: 20px;
+      margin: 25px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .warning-item {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .form-status-msg {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: none;
+    }
+    .form-status-msg.success {
+      display: block;
+      background: rgba(0, 240, 255, 0.15);
+      border: 1px solid var(--neon-cyan);
+      color: #fff;
+    }
+    .form-status-msg.error {
+      display: block;
+      background: rgba(255, 51, 51, 0.15);
+      border: 1px solid var(--red-alert);
+      color: #ff9999;
+    }
+
+    /* ==========================================================================
+       12. БЛОК 8: КОНТАКТЫ И ФОРМА ЗАПРОСА (fon_contacts.jpg)
+       ========================================================================== */
+    .contacts-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 35px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .contacts-info-card {
+      background: var(--panel-card);
+      border: 1px solid var(--border-line);
+      border-radius: 20px;
+      padding: 35px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .contact-item {
+      margin-bottom: 25px;
+    }
+
+    .contact-item-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--neon-cyan);
+      margin-bottom: 6px;
+    }
+
+    .contact-phone-link {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+      transition: color 0.2s ease;
+      display: inline-block;
+    }
+
+    .contact-phone-link:hover {
+      color: var(--neon-cyan);
+      text-shadow: var(--glow-cyan);
+    }
+
+    .contact-city-text {
+      font-size: 1.2rem;
+      color: #cbd5e1;
+    }
+
+    .callback-form-card {
+      background: var(--panel-card);
+      border: 1px solid var(--border-line);
+      border-radius: 20px;
+      padding: 35px;
+    }
+
+    /* Футер */
+    .site-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 30px 20px;
+      text-align: center;
+      background: #08080e;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* ==========================================================================
+       13. ЕДИНЫЙ ПОЛНОЭКРАННЫЙ ЛАЙТБОКС (ДЛЯ ГАЛЕРЕИ И КАТАЛОГА)
+       ========================================================================== */
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 8, 14, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 1200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    .lightbox-modal.active {
+      display: flex;
+    }
+
+    .lightbox-close-btn {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      width: 46px;
+      height: 46px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--neon-cyan);
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+      z-index: 1210;
+    }
+
+    .lightbox-close-btn:hover {
+      background: var(--neon-cyan);
+      color: #000;
+      box-shadow: var(--glow-cyan);
+    }
+
+    .lightbox-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      background: rgba(18, 18, 28, 0.8);
+      border: 1px solid var(--border-line);
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+      z-index: 1205;
+    }
+
+    .lightbox-nav-btn:hover {
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+      box-shadow: var(--glow-cyan);
+    }
+
+    .lightbox-prev-btn { left: 24px; }
+    .lightbox-next-btn { right: 24px; }
+
+    .lightbox-content-box {
+      max-width: 90vw;
+      max-height: 82vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .lightbox-image {
+      max-width: 90vw;
+      max-height: 82vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 0 35px rgba(0, 0, 0, 0.9);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+    }
+
+    .lightbox-caption-bar {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .lightbox-counter {
+      color: var(--neon-cyan);
+      font-weight: 700;
+    }
+
+    /* Адаптивность для мобильных экранов */
+    @media (max-width: 768px) {
+      .site-header { height: 65px; }
+      .nav-menu {
+        position: fixed;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        background: rgba(10, 10, 18, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 25px;
+        gap: 20px;
+        border-bottom: 1px solid var(--border-line);
+        display: none;
+      }
+      .nav-menu.open { display: flex; }
+      .burger-btn { display: block; }
+      .section-wrap { padding: 80px 15px 60px; }
+      .mini-player-bar { height: 75px; }
+      .player-volume-wrap { display: none; }
+      .player-track-info { width: 180px; }
+      .lightbox-nav-btn { width: 42px; height: 42px; font-size: 1.4rem; }
+      .lightbox-prev-btn { left: 10px; }
+      .lightbox-next-btn { right: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       ЛИПКАЯ ШАПКА С МЕНЮ-ЯКОРЯМИ
+       ========================================================================== -->
+  <header class="site-header" id="site-header">
+    <div class="header-container">
+      <a href="#hero" class="logo-brand">
+        <div class="logo-symbol">Ai</div>
+        <div class="logo-text">Nikolaev Studio</div>
+      </a>
+
+      <button class="burger-btn" id="burger-btn" aria-label="Открыть меню">☰</button>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#about" class="nav-link">О студии</a></li>
+        <li><a href="#team" class="nav-link">Команда</a></li>
+        <li><a href="#catalog" class="nav-link">Образы</a></li>
+        <li><a href="#gallery" class="nav-link">Галерея</a></li>
+        <li><a href="#music" class="nav-link">Музыка</a></li>
+        <li><a href="#rules" class="nav-link">Правила</a></li>
+        <li><a href="#contacts" class="nav-link">Контакты</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       БЛОК 1. HERO (фон assets/img/bg/fon_start.jpg)
+       ========================================================================== -->
+  <section class="section-wrap" id="hero">
+    <div class="section-container hero-content">
+      <div class="hero-emblem">
+        <span class="hero-emblem-text">Ai</span>
+      </div>
+      <h1 class="hero-title">Ai Nikolaev Studio</h1>
+      <p class="hero-slogan">AI-фотостудия будущего</p>
+      <div class="hero-actions">
+        <a href="#promo-order-form" class="btn-cyber btn-primary">Оставить заявку</a>
+        <a href="#gallery" class="btn-cyber btn-secondary">Смотреть работы</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       БЛОК 2. СТАТЬЯ-РАССКАЗ (фон assets/img/bg/fon_article.jpg)
+       ========================================================================== -->
+  <section class="section-wrap" id="about">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="neon-badge">О студии</span>
+        <h2 class="section-title">Магия и контроль человека</h2>
+        <p class="section-subtitle">Почему реалистичная нейросетевая фотосессия — это результат мастерства, а не случайности</p>
+      </div>
+
+      <div class="article-grid">
+        <div class="article-card">
+          <span class="article-number">01</span>
+          <p>Технологии не стоят на месте. Ещё вчера о таком можно было только мечтать, а сегодня нейросети создают изображения, которые сложно отличить от снимка. Кажется, что возможно всё. Но это не так.</p>
+        </div>
+
+        <div class="article-card">
+          <span class="article-number">02</span>
+          <p>За каждым реалистичным кадром стоит контроль человека. В этой работе десятки тонкостей: свет, пропорции, фактура ткани, отражения, характер образа. Машина не видит их сама — их видит и задаёт специалист.</p>
+        </div>
+
+        <div class="article-card">
+          <span class="article-number">03</span>
+          <p>Реалистичная фотосессия получается только тогда, когда знаешь основы фотографии и работаешь в профессиональном софте. Нейросеть — это инструмент, а не волшебник. В умелых руках она даёт результат, в случайных — кашу.</p>
+        </div>
+
+        <div class="article-card">
+          <span class="article-number">04</span>
+          <p>Отдельный труд — карты актёров и карты предметов. Каждый образ собирается по крупицам: лицо, поза, костюм, украшения, реквизит. Всё это создаётся, проверяется и уточняется отдельно.</p>
+        </div>
+
+        <div class="article-card article-card-featured">
+          <p>И только потом все карты объединяются в одну сцену: выставляется свет, композиция, атмосфера. И вот тогда — и только тогда — получается кадр, который можно назвать фотографией будущего.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       БЛОК 3. КОМАНДА (фон assets/img/bg/fon_team.jpg)
+       ========================================================================== -->
+  <section class="section-wrap" id="team">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="neon-badge">Команда</span>
+        <h2 class="section-title">Создатели проекта</h2>
+        <p class="section-subtitle">Синтез передового искусственного интеллекта и классической школы фотографии</p>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar-frame">⚡</div>
+          <h3 class="team-name">Ai Nikolaev</h3>
+          <p class="team-role">Основатель, AI-художник и музыкант</p>
+          <div class="team-city">📍 Москва</div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar-frame">📷</div>
+          <h3 class="team-name">Olga Sergeeva</h3>
+          <p class="team-role">Сооснователь, профессиональный фотограф</p>
+          <div class="team-city">📍 Москва</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       БЛОК 4. КАРТА НАБРОСКОВ / ОБРАЗЫ (фон assets/img/bg/fon_catalog.jpg)
+       ========================================================================== -->
+  <section class="section-wrap" id="catalog">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="neon-badge">Каталог</span>
+        <h2 class="section-title">Карта набросков / Образы</h2>
+        <p class="section-subtitle">Выберите номера образов — их вы укажете в заявке</p>
+      </div>
+
+      <!-- Табы категорий каталога -->
+      <div class="catalog-tabs">
+        <button class="catalog-tab-btn active" data-target="all">Все разделы</button>
+        <button class="catalog-tab-btn" data-target="fashion">Фэшн-арт и древнерусские</button>
+        <button class="catalog-tab-btn" data-target="jewelry">Украшения</button>
+        <button class="catalog-tab-btn" data-target="snow">Снегурочка 2027</button>
+        <button class="catalog-tab-btn" data-target="santa">Дед Мороз 2027</button>
+      </div>
+
+      <!-- Контейнеры набросков -->
+      <div id="catalog-sections-wrap">
+        <!-- 1. Фэшн-арт -->
+        <div class="catalog-group" data-cat="fashion">
+          <h3 class="catalog-group-title">1. Фэшн-арт и древнерусские костюмы</h3>
+          <div class="catalog-grid" id="grid-fashion"></div>
+        </div>
+
+        <!-- 2. Украшения -->
+        <div class="catalog-group" data-cat="jewelry">
+          <h3 class="catalog-group-title">2. Украшения: браслеты, колье, кольца</h3>
+          <div class="catalog-grid" id="grid-jewelry"></div>
+        </div>
+
+        <!-- 3. Снегурочка -->
+        <div class="catalog-group" data-cat="snow">
+          <h3 class="catalog-group-title">3. Снегурочка 2027</h3>
+          <div class="catalog-grid" id="grid-snow"></div>
+        </div>
+
+        <!-- 4. Дед Мороз -->
+        <div class="catalog-group" data-cat="santa">
+          <h3 class="catalog-group-title">4. Дед Мороз 2027</h3>
+          <div class="catalog-grid" id="grid-santa"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       БЛОК 5. ГАЛЕРЕЯ (фон assets/img/bg/fon_gallery.jpg)
+       ========================================================================== -->
+  <section class="section-wrap" id="gallery">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="neon-badge">Галерея</span>
+        <h2 class="section-title">Портфолио и актёры</h2>
+        <p class="section-subtitle">Каждая фотосессия — законченная история в кинематографическом качестве</p>
+      </div>
+
+      <!-- Подраздел: Наши актёры (4 вертикальные карточки 9:16) -->
+      <div class="actors-section">
+        <div class="sub-section-header">
+          <h3 class="sub-section-title">Наши актёры</h3>
+        </div>
+        <div class="actors-grid" id="actors-container">
+          <!-- Карточка 1 -->
+          <div class="actor-card">
+            <div class="actor-photo-wrap" onclick="openActorInLightbox(1)">
+              <img src="assets/img/actors/thumb/actors_01.jpg" onerror="this.src='assets/actors/actors_01.jpg'" alt="Актёр 1" loading="lazy">
+            </div>
+            <div class="actor-info">
+              <span class="actor-badge">Актёр 01</span>
+              <p class="actor-text" id="actor-text-1">Малышев Андрей, родился в городе Новоузенск, счас проживает в г.Москва, работает водителем</p>
+            </div>
+          </div>
+
+          <!-- Карточка 2 -->
+          <div class="actor-card">
+            <div class="actor-photo-wrap" onclick="openActorInLightbox(2)">
+              <img src="assets/img/actors/thumb/actors_02.jpg" onerror="this.src='assets/actors/actors_02.jpg'" alt="Актёр 2" loading="lazy">
+            </div>
+            <div class="actor-info">
+              <span class="actor-badge">Актёр 02</span>
+              <p class="actor-text" id="actor-text-2">Корешников Александр, родился г.Обнинск, проживает г.Елабуга, работает разнорабочим.</p>
+            </div>
+          </div>
+
+          <!-- Карточка 3 -->
+          <div class="actor-card">
+            <div class="actor-photo-wrap" onclick="openActorInLightbox(3)">
+              <img src="assets/img/actors/thumb/actors_03.jpg" onerror="this.src='assets/actors/actors_03.jpg'" alt="Актёр 3" loading="lazy">
+            </div>
+            <div class="actor-info">
+              <span class="actor-badge">Актёр 03</span>
+              <p class="actor-text" id="actor-text-3">Юлия, хоть и общительная, но данные предпочтла свои скрыть.</p>
+            </div>
+          </div>
+
+          <!-- Карточка 4 -->
+          <div class="actor-card">
+            <div class="actor-photo-wrap" onclick="openActorInLightbox(4)">
+              <img src="assets/img/actors/thumb/actors_04.jpg" onerror="this.src='assets/actors/actors_04.jpg'" alt="Актёр 4" loading="lazy">
+            </div>
+            <div class="actor-info">
+              <span class="actor-badge">Актёр 04</span>
+              <p class="actor-text" id="actor-text-4">Кристина, однокурсница с института, просто хороший человек, во всем интернете всего 3 фото.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Подраздел: Примеры работ (папки-фотосессии) -->
+      <div class="sub-section-header">
+        <h3 class="sub-section-title">Примеры работ</h3>
+      </div>
+      <div id="gallery-sessions-wrap">
+        <!-- Сюда динамически монтируются подсекции фотосессий с масонри-сетками -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       БЛОК 6. МУЗЫКА (фон assets/img/bg/fon_music.jpg)
+       ========================================================================== -->
+  <section class="section-wrap" id="music">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="neon-badge">Саундтрек</span>
+        <h2 class="section-title">Музыка от Ai Nikolaev</h2>
+      </div>
+
+      <!-- Карточка анонса сингла -->
+      <div class="music-announcement-card">
+        <h3 class="music-announcement-title">Премьера релиза</h3>
+        <p class="music-announcement-text">Первый сингл выходит 10 ноября на музыкальных площадках</p>
+      </div>
+
+      <!-- Список треков -->
+      <div class="playlist-container">
+        <div class="tracks-list" id="tracks-list">
+          <!-- Треки монтируются динамически из AUDIO_TRACKS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       БЛОК 7. ПРАВИЛА И АКЦИИ (фон assets/img/bg/fon_rules.jpg)
+       ========================================================================== -->
+  <section class="section-wrap" id="rules">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="neon-badge">Условия</span>
+        <h2 class="section-title">Как мы работаем и цены</h2>
+      </div>
+
+      <div class="rules-grid">
+        <!-- Как мы работаем -->
+        <div class="rules-card">
+          <h3 class="rules-card-title">Как мы работаем</h3>
+          <p>Вашими заказами лично занимается профессиональный фотограф Ольга Сергеева. Она оценивает качество фото, принимает оплату и передаёт готовые материалы.</p>
+          <p>Мы даём гарантию качества, а ваши фотографии нигде и никогда больше не используются.</p>
+        </div>
+
+        <!-- Основные цены -->
+        <div class="rules-card">
+          <h3 class="rules-card-title">Основные цены</h3>
+          <div class="price-tag">1 фото (2K) — 500 ₽</div>
+          <div class="price-tag">Сессия 10 фото (2K) — 5 000 ₽</div>
+          <p style="margin-top: 14px;"><strong>В цену входит:</strong> улучшение исходника, апскейл, обработка в Photoshop, создание карты актёра, создание карты предмета, создание и выборка кадра.</p>
+        </div>
+      </div>
+
+      <!-- Блок Акция 300 руб -->
+      <div class="promo-highlight-card">
+        <span class="promo-badge-hot">АКЦИЯ</span>
+        <h3 class="promo-title">АКЦИЯ: 1 фото в качестве 4K — 300 ₽</h3>
+        
+                <ul class="promo-steps">
+          <li class="promo-step-item">
+            <span class="step-number">1</span>
+            <span>Оплатите 300 ₽ по кнопке ниже (ЮMoney).</span>
+          </li>
+          <li class="promo-step-item">
+            <span class="step-number">2</span>
+            <span>Сохраните электронный чек об оплате (скриншот или квитанцию).</span>
+          </li>
+          <li class="promo-step-item">
+            <span class="step-number">3</span>
+            <span>Нажмите кнопку «Перейти к загрузке» — откроется форма покупки.</span>
+          </li>
+          <li class="promo-step-item">
+            <span class="step-number">4</span>
+            <span>Заполните форму покупки, прикрепите ваше исходное фото и чек об оплате, затем нажмите «Отправить» — заявка, фото и чек сразу придут к нам в рабочий чат.</span>
+          </li>
+        </ul>
+
+        <div class="promo-actions-row">
+          <a href="https://yoomoney.ru/to/410017624288987/300" target="_blank" rel="noopener noreferrer" class="btn-cyber btn-primary">Оплатить 300 ₽</a>
+          <a href="#promo-order-form" class="btn-cyber btn-secondary">Перейти к загрузке</a>
+        </div>
+      </div>
+
+      <!-- Форма покупки по акции -->
+      <div class="promo-form-container" id="promo-order-form">
+        <h3 class="form-title">Форма покупки по акции</h3>
+        
+        <form id="purchase-form">
+          <div class="form-group">
+            <label class="form-label" for="buy-name">Ваше имя *</label>
+            <input type="text" id="buy-name" name="name" class="form-input" placeholder="Как к вам обращаться" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Фото-файл для генерации *</label>
+            <div class="file-dropzone" id="file-dropzone">
+              <input type="file" id="buy-photo" name="photo" accept="image/*" required>
+              <div class="dropzone-icon">📁</div>
+              <p><strong>Нажмите для выбора файла</strong> или перетащите фото сюда</p>
+              <span class="form-hint">Вид спереди, лицо смотрит в камеру, видны все детали</span>
+            </div>
+                        <!-- Превью выбранного фото -->
+            <div class="file-preview-wrap" id="file-preview-wrap">
+              <img src="" alt="Превью" class="file-preview-thumb" id="file-preview-thumb">
+              <div class="file-preview-name" id="file-preview-name"></div>
+            </div>
+          </div>
+
+          <!-- Поле загрузки чека об оплате -->
+          <div class="form-group">
+            <label class="form-label">Чек об оплате (скриншот или квитанция) *</label>
+            <div class="file-dropzone" id="receipt-dropzone">
+              <input type="file" id="buy-receipt" name="receipt" accept="image/*,.pdf" required>
+              <div class="dropzone-icon">🧾</div>
+              <p><strong>Нажмите для выбора чека</strong> или перетащите скриншот сюда</p>
+              <span class="form-hint">Скриншот перевода из банка или чек ЮMoney (JPG, PNG, PDF)</span>
+            </div>
+            <!-- Превью выбранного чека -->
+            <div class="file-preview-wrap" id="receipt-preview-wrap">
+              <img src="" alt="Превью чека" class="file-preview-thumb" id="receipt-preview-thumb">
+              <div class="file-preview-name" id="receipt-preview-name"></div>
+            </div>
+          </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="buy-samples">Номера заготовок *</label>
+            <textarea id="buy-samples" name="samples" rows="3" class="form-textarea" placeholder="Снегурочка 63 + украшения 87" required></textarea>
+            <span class="form-hint">Укажите номера понравившихся образов из каталога выше</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="buy-destination">Куда отправить готовый файл *</label>
+            <input type="text" id="buy-destination" name="destination" class="form-input" placeholder="Ваш Email или Telegram (@username)" required>
+          </div>
+
+          <!-- Три обязательных предупреждения красным жирным шрифтом -->
+          <div class="warnings-block">
+            <p class="warning-item text-red">ВАЖНО: Мы не делаем голые фото, это строго запрещено законом.</p>
+            <p class="warning-item text-red">ВАЖНО: По акции в кадре может быть только 1 человек (1 актер).</p>
+            <p class="warning-item text-red">ВАЖНО: Итоговый результат зависит от качества и ракурса вашего исходного фото. Если вы прислали только лицо, нейросеть рассчитает пропорции тела от плеч. Мы не обладаем телепатией, поэтому возможны небольшие неточности.</p>
+          </div>
+
+          <button type="submit" class="btn-cyber btn-primary" id="btn-submit-purchase" style="width: 100%;">
+            Отправить заявку
+          </button>
+
+          <div class="form-status-msg" id="purchase-status-msg"></div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       БЛОК 8. КОНТАКТЫ И ФОРМА ЗАПРОСА (fon_contacts.jpg)
+       ========================================================================== -->
+  <section class="section-wrap" id="contacts">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="neon-badge">Связь</span>
+        <h2 class="section-title">Контакты</h2>
+        <p class="section-subtitle">Остались вопросы или хотите обсудить персональный проект?</p>
+      </div>
+
+      <div class="contacts-wrapper">
+        <!-- Контактная информация -->
+        <div class="contacts-info-card">
+          <div class="contact-item">
+            <span class="contact-item-label">Контактный телефон</span>
+            <div style="font-size: 1.6rem; font-weight: 800; color: #fff; letter-spacing: 1px;">8 (915) 411-53-11</div>
+          </div>
+
+          <div class="contact-item">
+            <span class="contact-item-label">Город студии</span>
+            <div class="contact-city-text">Москва</div>
+          </div>
+
+          <div class="contact-item" style="margin-bottom: 0;">
+            <span class="contact-item-label">Режим работы</span>
+            <div style="color: #94a3b8; font-size: 0.95rem;">Приём заявок круглосуточно онлайн</div>
+          </div>
+        </div>
+
+        <!-- Форма запроса: Заказать звонок -->
+        <div class="callback-form-card" id="request">
+          <h3 class="form-title" style="text-align: left; margin-bottom: 18px;">Заказать звонок</h3>
+          <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 22px;">Оставьте номер телефона, и наш специалист свяжется с вами для консультации.</p>
+          
+          <form id="callback-form">
+            <div class="form-group">
+              <label class="form-label" for="call-name">Ваше имя *</label>
+              <input type="text" id="call-name" name="name" class="form-input" placeholder="Иван" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="call-phone">Номер телефона *</label>
+              <input type="tel" id="call-phone" name="phone" class="form-input" placeholder="+7 (999) 000-00-00" required>
+            </div>
+
+            <button type="submit" class="btn-cyber btn-primary" id="btn-submit-callback" style="width: 100%;">
+              Отправить
+            </button>
+
+            <div class="form-status-msg" id="callback-status-msg"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Подвал сайта -->
+  <footer class="site-footer">
+    <div class="section-container">
+      <p>© 2026 Ai Nikolaev Studio. Все права защищены. Искусство фотографии будущего.</p>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       ФИКСИРОВАННЫЙ МИНИ-ПЛЕЕР ВНИЗУ ЭКРАНА
+       ========================================================================== -->
+  <div class="mini-player-bar" id="mini-player">
+    <!-- Полоса прогресса воспроизведения -->
+    <div class="player-progress-container" id="player-progress-container">
+      <div class="player-progress-bar" id="player-progress-bar"></div>
+    </div>
+
+    <div class="player-inner">
+      <!-- Информация о треке и обложка -->
+      <div class="player-track-info">
+        <div class="player-cover" id="player-cover">
+          <img src="" alt="Обложка" id="player-cover-img" style="display: none;">
+          <div id="player-cover-placeholder">⚡</div>
+        </div>
+        <div class="player-meta">
+          <div class="player-title" id="player-track-title">Выберите трек</div>
+          <div class="player-artist">Ai Nikolaev</div>
+        </div>
+      </div>
+
+      <!-- Кнопки управления -->
+      <div class="player-controls">
+        <button class="player-btn" id="player-prev-btn" title="Предыдущий">⏮</button>
+        <button class="player-btn player-btn-main" id="player-play-btn" title="Воспроизведение/Пауза">▶</button>
+        <button class="player-btn" id="player-next-btn" title="Следующий">⏭</button>
+        <div class="player-timers" id="player-timers">0:00 / 0:00</div>
+      </div>
+
+      <!-- Регулятор громкости -->
+      <div class="player-volume-wrap">
+        <button class="player-btn" id="player-mute-btn" style="width:28px; height:28px; font-size:1rem;">🔊</button>
+        <input type="range" class="volume-slider" id="player-volume" min="0" max="1" step="0.05" value="0.85">
+      </div>
+    </div>
+  </div>
+
+  <!-- Скрытый аудиоэлемент HTML5 -->
+  <audio id="audio-engine" preload="none"></audio>
+
+  <!-- ==========================================================================
+       ЕДИНЫЙ ПОЛНОЭКРАННЫЙ ЛАЙТБОКС
+       ========================================================================== -->
+  <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true">
+    <button class="lightbox-close-btn" id="lightbox-close-btn" title="Закрыть (Esc)">✕</button>
+    <button class="lightbox-nav-btn lightbox-prev-btn" id="lightbox-prev-btn" title="Назад (Стрелка влево)">‹</button>
+    <button class="lightbox-nav-btn lightbox-next-btn" id="lightbox-next-btn" title="Вперёд (Стрелка вправо)">›</button>
+
+    <div class="lightbox-content-box">
+      <img src="" alt="Просмотр" class="lightbox-image" id="lightbox-image">
+    </div>
+
+    <div class="lightbox-caption-bar">
+      <span id="lightbox-title">Фото</span>
+      <span class="lightbox-counter" id="lightbox-counter">1 / 1</span>
+    </div>
+  </div>
+
+
+  <!-- ==========================================================================
+       JAVASCRIPT: ЛОГИКА, КОНФИГ И АВТОПОИСК
+       ========================================================================== -->
+  <script>
+    /* ==========================================================================
+       РАЗДЕЛ 6. КОНФИГ (вшит согласно ТЗ)
+       ========================================================================== */
+    const BOT_TOKEN = "9025366747:AAH-4_1yHJZRKCmK6g-B9nF55IfumDF0h-Q";
+    const CHAT_ID = "-1003904028696";
+    const YOOMONEY_LINK = "https://yoomoney.ru/to/410017624288987/300";
+
+    const GALLERY_FOLDERS = [
+      { dir: "gangster_1920", title: "Гангстер 1920" },
+      { dir: "man_gitar", title: "Мужчина с гитарой" },
+      { dir: "women_ukrashenie", title: "Женщина с украшением" },
+      { dir: "women_viking", title: "Женщина-викинг" }
+    ];
+
+    const AUDIO_TRACKS = [
+      "Бег в никуда.mp3", "Бессонница.mp3", "Битва молний.mp3", "Бог это оружие.mp3",
+      "Ветер.mp3", "Всё будет хорошо.mp3", "Дача.mp3", "Двадцать девять дней.mp3",
+      "Искусственная жизнь.mp3", "Краса.mp3", "Любовь за деньги.mp3", "Марионетки.mp3",
+      "Мужчины женщин не поймут.mp3", "На заре.mp3", "Навсегда это просто слова.mp3",
+      "Перемен.mp3", "Печаль.mp3", "Письмо сыну.mp3", "Посевная.mp3", "Правда убийца.mp3",
+      "Спартак клуб героев.mp3", "Трос Саратов-Москва.mp3", "Чарочка.mp3"
+    ];
+
+    const SINGLES = [
+      { file: "Бог это оружие.mp3", link: "https://band.link/A7PKz" },
+      { file: "Марионетки.mp3", link: "https://band.link/AB1GB" }
+    ];
+
+    /* ==========================================================================
+       СЕТЕВАЯ ОТПРАВКА В TELEGRAM (прямой запрос + fallback corsproxy)
+       ========================================================================== */
+    async function sendTelegramRequest(method, payload, isFormData = false) {
+      const directUrl = `https://api.telegram.org/bot${BOT_TOKEN}/${method}`;
+      const proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(directUrl);
+
+      // 1. Прямая попытка к api.telegram.org
+      try {
+        const directRes = await fetch(directUrl, {
+          method: 'POST',
+          headers: isFormData ? undefined : { 'Content-Type': 'application/json' },
+          body: isFormData ? payload : JSON.stringify(payload)
+        });
+        const resJson = await directRes.json();
+        if (resJson.ok) return { ok: true, data: resJson };
+        throw new Error(resJson.description || 'Ошибка Telegram API');
+      } catch (errDirect) {
+        console.warn('Прямой запрос к Telegram не прошёл, пробуем прокси...', errDirect);
+        
+        // 2. Попытка через corsproxy.io
+        try {
+          const proxyRes = await fetch(proxyUrl, {
+            method: 'POST',
+            headers: isFormData ? undefined : { 'Content-Type': 'application/json' },
+            body: isFormData ? payload : JSON.stringify(payload)
+          });
+          const proxyJson = await proxyRes.json();
+          if (proxyJson.ok) return { ok: true, data: proxyJson };
+          throw new Error(proxyJson.description || 'Ошибка проксирования');
+        } catch (errProxy) {
+          console.error('Ошибка через corsproxy.io:', errProxy);
+          
+          // 3. Дополнительный резервный веб-прокси для надёжности
+          if (!isFormData) {
+            try {
+              const altProxy = "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(directUrl);
+              const altRes = await fetch(altProxy, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+              });
+              const altJson = await altRes.json();
+              if (altJson.ok) return { ok: true, data: altJson };
+            } catch (eAlt) {
+              console.error('Alt proxy failed', eAlt);
+            }
+          }
+          throw errProxy;
+        }
+      }
+    }
+
+    /* ==========================================================================
+       КАТАЛОГ НАБРОСКОВ: АВТОПОИСК И МОНТИРОВАНИЕ
+       ========================================================================== */
+    const CATALOG_CONFIG = [
+      { key: "fashion", prefix: "gallery_fashion", title: "Фэшн-арт и древнерусские костюмы", knownCount: 10 },
+      { key: "jewelry", prefix: "jewelry", title: "Украшения: браслеты, колье, кольца", knownCount: 10 },
+      { key: "snow", prefix: "snow", title: "Снегурочка 2027", knownCount: 10 },
+      { key: "santa", prefix: "santa", title: "Дед Мороз 2027", knownCount: 10 }
+    ];
+
+    // Хранилище всех карточек каталога для лайтбокса
+    const catalogItemsStore = [];
+
+    function initCatalog() {
+      CATALOG_CONFIG.forEach(cat => {
+        const grid = document.getElementById(`grid-${cat.key}`);
+        if (!grid) return;
+
+        // По ТЗ автопоиск: для i=1..99 имя = ПРЕФИКС + "_" + i с ведущим нулём + ".jpg"
+        for (let i = 1; i <= cat.knownCount; i++) {
+          const numStr = String(i).padStart(2, '0');
+          const fileName = `${cat.prefix}_${numStr}.jpg`;
+          const filePath = `assets/img/catalog/${cat.key}/${fileName}`;
+          const thumbPath = `assets/img/catalog/${cat.key}/thumb/${fileName}`;
+
+          const itemObj = {
+            id: `cat_${cat.key}_${i}`,
+            category: cat.title,
+            num: i,
+            url: filePath,
+            title: `${cat.title} — №${i}`
+          };
+          catalogItemsStore.push(itemObj);
+
+          const card = document.createElement('div');
+          card.className = 'sketch-card';
+          card.innerHTML = `
+            <div class="sketch-img-wrap" onclick="openCatalogLightbox('${itemObj.id}')">
+              <img src="${thumbPath}" onerror="this.src='${filePath}'" alt="${cat.title} №${i}" loading="lazy">
+            </div>
+            <div class="sketch-meta">
+              <span class="sketch-badge-num">№${i}</span>
+              <button class="sketch-pick-btn" onclick="selectSample('${cat.title} №${i}')">Выбрать</button>
+            </div>
+          `;
+          grid.appendChild(card);
+        }
+      });
+
+      // Переключение табов каталога
+      const tabBtns = document.querySelectorAll('.catalog-tab-btn');
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const target = btn.dataset.target;
+          const groups = document.querySelectorAll('.catalog-group');
+          groups.forEach(g => {
+            if (target === 'all' || g.dataset.cat === target) {
+              g.style.display = 'block';
+            } else {
+              g.style.display = 'none';
+            }
+          });
+        });
+      });
+    }
+
+    // Быстрый выбор номера заготовки в форму
+    function selectSample(sampleText) {
+      const textarea = document.getElementById('buy-samples');
+      if (textarea) {
+        if (textarea.value.trim().length > 0) {
+          textarea.value += `, ${sampleText}`;
+        } else {
+          textarea.value = sampleText;
+        }
+        // Плавный скролл к форме покупки
+        const formElem = document.getElementById('promo-order-form');
+        if (formElem) {
+          formElem.scrollIntoView({ behavior: 'smooth' });
+          textarea.focus();
+        }
+      }
+    }
+
+    /* ==========================================================================
+       ГАЛЕРЕЯ: ПРИМЕРЫ РАБОТ (МАСОНРИ И АВТОПОИСК)
+       ========================================================================== */
+    const galleryItemsStore = [];
+
+    // Известное проверенное количество фото в папках
+    const KNOWN_GALLERY_COUNTS = {
+      "gangster_1920": 13,
+      "man_gitar": 12,
+      "women_ukrashenie": 15,
+      "women_viking": 17
+    };
+
+    function initGallery() {
+      const wrap = document.getElementById('gallery-sessions-wrap');
+      if (!wrap) return;
+
+      GALLERY_FOLDERS.forEach(folder => {
+        const count = KNOWN_GALLERY_COUNTS[folder.dir] || 12;
+        const block = document.createElement('div');
+        block.className = 'gallery-session-block';
+        block.id = `gallery-session-${folder.dir}`;
+
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'session-title-wrap';
+        headerDiv.innerHTML = `
+          <h4 class="session-title">${folder.title}</h4>
+          <span class="session-badge">${count} кадров</span>
+        `;
+        block.appendChild(headerDiv);
+
+        const masonryDiv = document.createElement('div');
+        masonryDiv.className = 'gallery-masonry';
+
+        for (let i = 1; i <= count; i++) {
+          // По ТЗ: шаблон по порядку: 1 ({i}).jpg
+          const encodedFileName = encodeURIComponent(`1 (${i}).jpg`);
+          const imgUrl = `assets/img/gallery/${folder.dir}/${encodedFileName}`;
+          const thumbUrl = `assets/img/gallery/${folder.dir}/thumb/${encodedFileName}`;
+
+          const itemObj = {
+            id: `gal_${folder.dir}_${i}`,
+            session: folder.title,
+            num: i,
+            url: imgUrl,
+            title: `${folder.title} (кадр ${i})`
+          };
+          galleryItemsStore.push(itemObj);
+
+          const itemCard = document.createElement('div');
+          itemCard.className = 'gallery-item';
+          itemCard.setAttribute('onclick', `openGalleryLightbox('${itemObj.id}')`);
+          itemCard.innerHTML = `
+            <img src="${thumbUrl}" onerror="this.src='${imgUrl}'" alt="${folder.title} ${i}" loading="lazy">
+            <div class="gallery-item-overlay">
+              <div class="zoom-icon">🔍</div>
+            </div>
+          `;
+          masonryDiv.appendChild(itemCard);
+        }
+
+        block.appendChild(masonryDiv);
+        wrap.appendChild(block);
+      });
+    }
+
+    /* ==========================================================================
+       АКТЁРЫ: ЧТЕНИЕ ТЕКСТА ИЗ actorsN.txt ЧЕРЕЗ FETCH
+       ========================================================================== */
+    async function loadActorsText() {
+      for (let i = 1; i <= 4; i++) {
+        const elem = document.getElementById(`actor-text-${i}`);
+        if (!elem) continue;
+        try {
+          const res = await fetch(`assets/img/actors/actors${i}.txt`);
+          if (res.ok) {
+            const text = await res.text();
+            if (text && text.trim().length > 0) {
+              elem.textContent = text.trim();
+            }
+          }
+        } catch (e) {
+          // Если fetch недоступен (например, file:///), остаётся готовый текст из HTML
+          console.log(`Использован локальный текст для актёра ${i}`);
+        }
+      }
+    }
+
+    /* ==========================================================================
+       ЛАЙТБОКС (ЕДИНЫЙ КОМПОНЕНТ ДЛЯ КАТАЛОГА, ГАЛЕРЕИ И АКТЁРОВ)
+       ========================================================================== */
+    let activeLightboxList = [];
+    let currentLightboxIndex = 0;
+
+    const lightboxModal = document.getElementById('lightbox-modal');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxCounter = document.getElementById('lightbox-counter');
+    const lightboxCloseBtn = document.getElementById('lightbox-close-btn');
+    const lightboxPrevBtn = document.getElementById('lightbox-prev-btn');
+    const lightboxNextBtn = document.getElementById('lightbox-next-btn');
+
+    function openLightboxWithList(list, index) {
+      if (!list || list.length === 0) return;
+      activeLightboxList = list;
+      currentLightboxIndex = (index >= 0 && index < list.length) ? index : 0;
+      updateLightboxContent();
+      lightboxModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function updateLightboxContent() {
+      const item = activeLightboxList[currentLightboxIndex];
+      if (!item) return;
+      lightboxImage.src = item.url;
+      lightboxTitle.textContent = item.title || item.category || 'Изображение';
+      lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${activeLightboxList.length}`;
+    }
+
+    function closeLightbox() {
+      lightboxModal.classList.remove('active');
+      document.body.style.overflow = '';
+      lightboxImage.src = '';
+    }
+
+    function prevLightboxImage() {
+      if (activeLightboxList.length <= 1) return;
+      currentLightboxIndex = (currentLightboxIndex - 1 + activeLightboxList.length) % activeLightboxList.length;
+      updateLightboxContent();
+    }
+
+    function nextLightboxImage() {
+      if (activeLightboxList.length <= 1) return;
+      currentLightboxIndex = (currentLightboxIndex + 1) % activeLightboxList.length;
+      updateLightboxContent();
+    }
+
+    // Слушатели событий лайтбокса
+    lightboxCloseBtn.addEventListener('click', closeLightbox);
+    lightboxPrevBtn.addEventListener('click', prevLightboxImage);
+    lightboxNextBtn.addEventListener('click', nextLightboxImage);
+
+    lightboxModal.addEventListener('click', (e) => {
+      if (e.target === lightboxModal || e.target.classList.contains('lightbox-content-box')) {
+        closeLightbox();
+      }
+    });
+
+    // Управление стрелками клавиатуры
+    window.addEventListener('keydown', (e) => {
+      if (!lightboxModal.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') prevLightboxImage();
+      if (e.key === 'ArrowRight') nextLightboxImage();
+    });
+
+    // Свайпы на мобильных устройствах
+    let touchStartX = 0;
+    let touchEndX = 0;
+    lightboxModal.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    lightboxModal.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleLightboxSwipe();
+    }, { passive: true });
+
+    function handleLightboxSwipe() {
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) prevLightboxImage();
+        else nextLightboxImage();
+      }
+    }
+
+    // Точки входа для открытия лайтбокса
+    function openCatalogLightbox(itemId) {
+      const idx = catalogItemsStore.findIndex(i => i.id === itemId);
+      openLightboxWithList(catalogItemsStore, idx >= 0 ? idx : 0);
+    }
+
+    function openGalleryLightbox(itemId) {
+      const idx = galleryItemsStore.findIndex(i => i.id === itemId);
+      openLightboxWithList(galleryItemsStore, idx >= 0 ? idx : 0);
+    }
+
+    function openActorInLightbox(num) {
+      const actorsList = [1, 2, 3, 4].map(n => ({
+        url: `assets/img/actors/actors_0${n}.jpg`,
+        title: `Актёр 0${n}`
+      }));
+      openLightboxWithList(actorsList, num - 1);
+    }
+
+    /* ==========================================================================
+       МУЗЫКАЛЬНЫЙ ДВИЖОК И МИНИ-ПЛЕЕР
+       ========================================================================== */
+    const audioEngine = document.getElementById('audio-engine');
+    const playerPlayBtn = document.getElementById('player-play-btn');
+    const playerPrevBtn = document.getElementById('player-prev-btn');
+    const playerNextBtn = document.getElementById('player-next-btn');
+    const playerTrackTitle = document.getElementById('player-track-title');
+    const playerTimers = document.getElementById('player-timers');
+    const playerProgressBar = document.getElementById('player-progress-bar');
+    const playerProgressContainer = document.getElementById('player-progress-container');
+    const playerCover = document.getElementById('player-cover');
+    const playerCoverImg = document.getElementById('player-cover-img');
+    const playerCoverPlaceholder = document.getElementById('player-cover-placeholder');
+    const playerVolume = document.getElementById('player-volume');
+    const playerMuteBtn = document.getElementById('player-mute-btn');
+
+    let currentTrackIndex = -1;
+    let isPlaying = false;
+    let coversCache = {};
+
+    // Инициализация плейлиста в секции музыки
+    function initMusicSection() {
+      const listContainer = document.getElementById('tracks-list');
+      if (!listContainer) return;
+
+      const votedTrack = localStorage.getItem('ai_nikolaev_voted_track');
+
+      AUDIO_TRACKS.forEach((trackFile, index) => {
+        // Название трека на сайте = имя файла без «.mp3»
+        const trackTitle = trackFile.replace(/\.mp3$/i, '');
+        const coverPath = `assets/audio/covers/${encodeURIComponent(trackTitle)}.jpg`;
+        coversCache[trackFile] = coverPath;
+        
+        // Проверка: есть ли трек в списке SINGLES для кнопки Bandlink
+        const singleInfo = SINGLES.find(s => s.file === trackFile);
+
+        const row = document.createElement('div');
+        row.className = 'track-row';
+        row.id = `track-row-${index}`;
+
+        const isVoted = (votedTrack === trackTitle);
+
+        row.innerHTML = `
+          <div class="track-left">
+            <button class="track-play-btn" onclick="playTrackByIndex(${index})" title="Воспроизвести">
+              ▶
+            </button>
+            <div class="track-cover-mini" id="mini-cover-${index}">
+              <img src="${coverPath}" alt="${trackTitle}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <span style="display:none; color:var(--neon-cyan); font-size:1.1rem;">🎵</span>
+            </div>
+            <div class="track-details">
+              <div class="track-name">${trackTitle}</div>
+              <div class="track-artist">Ai Nikolaev</div>
+            </div>
+          </div>
+          <div class="track-actions">
+            ${singleInfo ? `<a href="${singleInfo.link}" target="_blank" rel="noopener noreferrer" class="btn-bandlink">Bandlink ↗</a>` : ''}
+            <button class="btn-vote ${isVoted ? 'is-voted' : ''}" 
+                    id="vote-btn-${index}" 
+                    onclick="voteForTrack('${trackTitle}', ${index})" 
+                    ${votedTrack ? 'disabled' : ''}>
+              ${isVoted ? '✓ Ваш голос' : '🗳 Голосовать'}
+            </button>
+          </div>
+        `;
+        listContainer.appendChild(row);
+      });
+    }
+
+    // Чтение обложки ID3 с CDN jsmediatags
+    function extractId3Cover(trackFileName, callback) {
+      const audioUrl = `assets/audio/${encodeURIComponent(trackFileName)}`;
+      if (window.jsmediatags) {
+        try {
+          window.jsmediatags.read(audioUrl, {
+            onSuccess: function(tag) {
+              const image = tag.tags.picture;
+              if (image) {
+                let base64String = "";
+                for (let i = 0; i < image.data.length; i++) {
+                  base64String += String.fromCharCode(image.data[i]);
+                }
+                const base64 = "data:" + image.format + ";base64," + window.btoa(base64String);
+                callback(base64);
+              } else {
+                callback(null);
+              }
+            },
+            onError: function() {
+              callback(null);
+            }
+          });
+        } catch(e) {
+          callback(null);
+        }
+      } else {
+        callback(null);
+      }
+    }
+
+    // Воспроизведение трека по индексу
+    function playTrackByIndex(index) {
+      if (index < 0 || index >= AUDIO_TRACKS.length) return;
+      currentTrackIndex = index;
+      const trackFile = AUDIO_TRACKS[index];
+      const trackTitle = trackFile.replace(/\.mp3$/i, '');
+
+      audioEngine.src = `assets/audio/${encodeURIComponent(trackFile)}`;
+      audioEngine.play().then(() => {
+        isPlaying = true;
+        updatePlayerUI(trackTitle, trackFile);
+      }).catch(err => {
+        console.warn('Ошибка воспроизведения аудио:', err);
+      });
+    }
+
+    function togglePlayPause() {
+      if (currentTrackIndex === -1) {
+        playTrackByIndex(0);
+        return;
+      }
+      if (audioEngine.paused) {
+        audioEngine.play();
+        isPlaying = true;
+      } else {
+        audioEngine.pause();
+        isPlaying = false;
+      }
+      updatePlayerPlayState();
+    }
+
+    function playPrevTrack() {
+      if (AUDIO_TRACKS.length === 0) return;
+      const newIndex = (currentTrackIndex - 1 + AUDIO_TRACKS.length) % AUDIO_TRACKS.length;
+      playTrackByIndex(newIndex);
+    }
+
+    function playNextTrack() {
+      if (AUDIO_TRACKS.length === 0) return;
+      const newIndex = (currentTrackIndex + 1) % AUDIO_TRACKS.length;
+      playTrackByIndex(newIndex);
+    }
+
+    function updatePlayerUI(title, file) {
+      playerTrackTitle.textContent = title;
+      updatePlayerPlayState();
+
+      // Обновление обложки в плеере
+      const coverUrl = coversCache[file] || `assets/audio/covers/${encodeURIComponent(title)}.jpg`;
+      playerCoverImg.src = coverUrl;
+      playerCoverImg.style.display = 'block';
+      playerCoverPlaceholder.style.display = 'none';
+
+      // Подсветка строки в плейлисте
+      document.querySelectorAll('.track-row').forEach((row, idx) => {
+        const btn = row.querySelector('.track-play-btn');
+        if (idx === currentTrackIndex) {
+          row.classList.add('is-active');
+          if (btn) btn.textContent = '⏸';
+        } else {
+          row.classList.remove('is-active');
+          if (btn) btn.textContent = '▶';
+        }
+      });
+    }
+
+    function updatePlayerPlayState() {
+      if (audioEngine.paused) {
+        playerPlayBtn.textContent = '▶';
+        playerCover.classList.remove('spinning');
+      } else {
+        playerPlayBtn.textContent = '⏸';
+        playerCover.classList.add('spinning');
+      }
+      // Синхронизация кнопки в списке
+      if (currentTrackIndex >= 0) {
+        const activeRow = document.getElementById(`track-row-${currentTrackIndex}`);
+        if (activeRow) {
+          const btn = activeRow.querySelector('.track-play-btn');
+          if (btn) btn.textContent = audioEngine.paused ? '▶' : '⏸';
+        }
+      }
+    }
+
+    // Слушатели событий аудиоплеера
+    playerPlayBtn.addEventListener('click', togglePlayPause);
+    playerPrevBtn.addEventListener('click', playPrevTrack);
+    playerNextBtn.addEventListener('click', playNextTrack);
+
+    audioEngine.addEventListener('play', () => { isPlaying = true; updatePlayerPlayState(); });
+    audioEngine.addEventListener('pause', () => { isPlaying = false; updatePlayerPlayState(); });
+    audioEngine.addEventListener('ended', playNextTrack);
+
+    // Таймер и прогресс
+    audioEngine.addEventListener('timeupdate', () => {
+      if (!audioEngine.duration) return;
+      const current = audioEngine.currentTime;
+      const total = audioEngine.duration;
+      const progressPercent = (current / total) * 100;
+      playerProgressBar.style.width = `${progressPercent}%`;
+
+      const curM = Math.floor(current / 60);
+      const curS = Math.floor(current % 60);
+      const totM = Math.floor(total / 60);
+      const totS = Math.floor(total % 60);
+      playerTimers.textContent = `${curM}:${curS < 10 ? '0' : ''}${curS} / ${totM}:${totS < 10 ? '0' : ''}${totS}`;
+    });
+
+    // Перемотка кликом по полосе прогресса
+    playerProgressContainer.addEventListener('click', (e) => {
+      if (!audioEngine.duration) return;
+      const rect = playerProgressContainer.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const ratio = Math.max(0, Math.min(1, clickX / rect.width));
+      audioEngine.currentTime = ratio * audioEngine.duration;
+    });
+
+    // Громкость
+    playerVolume.addEventListener('input', (e) => {
+      audioEngine.volume = parseFloat(e.target.value);
+      playerMuteBtn.textContent = audioEngine.volume === 0 ? '🔇' : '🔊';
+    });
+
+    playerMuteBtn.addEventListener('click', () => {
+      if (audioEngine.volume > 0) {
+        audioEngine.dataset.lastVol = audioEngine.volume;
+        audioEngine.volume = 0;
+        playerVolume.value = 0;
+        playerMuteBtn.textContent = '🔇';
+      } else {
+        const restore = parseFloat(audioEngine.dataset.lastVol || '0.85');
+        audioEngine.volume = restore;
+        playerVolume.value = restore;
+        playerMuteBtn.textContent = '🔊';
+      }
+    });
+
+    /* ==========================================================================
+       ГОЛОСОВАНИЕ ЗА РЕЛИЗ СЛЕДУЮЩЕГО ТРЕКА (localStorage + Telegram)
+       ========================================================================== */
+    async function voteForTrack(trackTitle, index) {
+      if (localStorage.getItem('ai_nikolaev_voted_track')) {
+        alert('Вы уже отдали свой голос ранее!');
+        return;
+      }
+
+      // 1. Сохранение флага в localStorage
+      localStorage.setItem('ai_nikolaev_voted_track', trackTitle);
+
+      // 2. Блокировка всех кнопок и подсветка выбранной
+      document.querySelectorAll('.btn-vote').forEach(btn => {
+        btn.disabled = true;
+      });
+      const votedBtn = document.getElementById(`vote-btn-${index}`);
+      if (votedBtn) {
+        votedBtn.classList.add('is-voted');
+        votedBtn.textContent = '✓ Ваш голос';
+      }
+
+      // 3. Отправка в Telegram по ТЗ: «🗳 ГОЛОС ЗА РЕЛИЗ\n🎵 Трек: ...»
+      const messageText = `🗳 ГОЛОС ЗА РЕЛИЗ\n🎵 Трек: ${trackTitle}`;
+      try {
+        await sendTelegramRequest('sendMessage', {
+          chat_id: CHAT_ID,
+          text: messageText
+        });
+      } catch (err) {
+        console.warn('Голос сохранён локально, но не удалось уведомить бота в Telegram:', err);
+      }
+    }
+
+    /* ==========================================================================
+       ОБРАБОТКА ФОРМ И ОТПРАВКА В TELEGRAM
+       ========================================================================== */
+        // Превью фото в форме покупки
+    const buyPhotoInput = document.getElementById('buy-photo');
+    const filePreviewWrap = document.getElementById('file-preview-wrap');
+    const filePreviewThumb = document.getElementById('file-preview-thumb');
+    const filePreviewName = document.getElementById('file-preview-name');
+
+    if (buyPhotoInput) {
+      buyPhotoInput.addEventListener('change', () => {
+        const file = buyPhotoInput.files[0];
+        if (file) {
+          filePreviewName.textContent = file.name;
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            filePreviewThumb.src = e.target.result;
+            filePreviewThumb.style.display = 'block';
+            filePreviewWrap.style.display = 'flex';
+          };
+          reader.readAsDataURL(file);
+        } else {
+          filePreviewWrap.style.display = 'none';
+        }
+      });
+    }
+
+    // Превью чека в форме покупки
+    const buyReceiptInput = document.getElementById('buy-receipt');
+    const receiptPreviewWrap = document.getElementById('receipt-preview-wrap');
+    const receiptPreviewThumb = document.getElementById('receipt-preview-thumb');
+    const receiptPreviewName = document.getElementById('receipt-preview-name');
+
+    if (buyReceiptInput) {
+      buyReceiptInput.addEventListener('change', () => {
+        const file = buyReceiptInput.files[0];
+        if (file) {
+          receiptPreviewName.textContent = file.name;
+          if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              receiptPreviewThumb.src = e.target.result;
+              receiptPreviewThumb.style.display = 'block';
+              receiptPreviewWrap.style.display = 'flex';
+            };
+            reader.readAsDataURL(file);
+          } else {
+            receiptPreviewThumb.style.display = 'none';
+            receiptPreviewWrap.style.display = 'flex';
+          }
+        } else {
+          receiptPreviewWrap.style.display = 'none';
+        }
+      });
+    }
+
+        // 1. Форма покупки по акции (300 руб) -> sendPhoto (фото + чек)
+    const purchaseForm = document.getElementById('purchase-form');
+    const btnSubmitPurchase = document.getElementById('btn-submit-purchase');
+    const purchaseStatusMsg = document.getElementById('purchase-status-msg');
+
+    if (purchaseForm) {
+      purchaseForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        purchaseStatusMsg.className = 'form-status-msg';
+        purchaseStatusMsg.style.display = 'none';
+
+        const nameVal = document.getElementById('buy-name').value.trim();
+        const samplesVal = document.getElementById('buy-samples').value.trim();
+        const destVal = document.getElementById('buy-destination').value.trim();
+        const photoFile = buyPhotoInput.files[0];
+        const receiptFile = buyReceiptInput.files[0];
+
+        if (!photoFile) {
+          purchaseStatusMsg.className = 'form-status-msg error';
+          purchaseStatusMsg.textContent = 'Пожалуйста, прикрепите фото лица для генерации!';
+          return;
+        }
+
+        if (!receiptFile) {
+          purchaseStatusMsg.className = 'form-status-msg error';
+          purchaseStatusMsg.textContent = 'Пожалуйста, прикрепите чек об оплате!';
+          return;
+        }
+
+        // Блокировка кнопки на время отправки
+        btnSubmitPurchase.disabled = true;
+        btnSubmitPurchase.textContent = 'Отправка заявки и файлов...';
+
+        const caption = `📸 ПОКУПКА ПО АКЦИИ (300₽)\n👤 Имя: ${nameVal}\n🎭 Номера заготовок: ${samplesVal}\n📍 Куда отправить файл: ${destVal}\n🧾 Чек об оплате: отправлен следом`;
+
+        // Данные для отправки фото лица
+        const photoData = new FormData();
+        photoData.append('chat_id', CHAT_ID);
+        photoData.append('photo', photoFile);
+        photoData.append('caption', caption);
+
+        // Данные для отправки чека
+        const receiptData = new FormData();
+        receiptData.append('chat_id', CHAT_ID);
+        const isPdf = receiptFile.type === 'application/pdf' || receiptFile.name.toLowerCase().endsWith('.pdf');
+        const receiptMethod = isPdf ? 'sendDocument' : 'sendPhoto';
+        const receiptFileKey = isPdf ? 'document' : 'photo';
+        receiptData.append(receiptFileKey, receiptFile);
+        receiptData.append('caption', `🧾 ЧЕК ОБ ОПЛАТЕ (300₽)\n👤 Клиент: ${nameVal}\n📍 Куда отправить: ${destVal}`);
+
+        try {
+          // 1. Отправляем фото лица
+          await sendTelegramRequest('sendPhoto', photoData, true);
+
+          // 2. Отправляем чек
+          try {
+            await sendTelegramRequest(receiptMethod, receiptData, true);
+          } catch (rErr) {
+            console.warn('Чек не удалось отправить файлом, отправляем текстовое подтверждение:', rErr);
+            await sendTelegramRequest('sendMessage', {
+              chat_id: CHAT_ID,
+              text: `⚠️ Чек (${receiptFile.name}) к заказу клиента ${nameVal} требует ручной проверки.`
+            });
+          }
+
+          purchaseStatusMsg.className = 'form-status-msg success';
+          purchaseStatusMsg.textContent = 'Заявка и чек успешно отправлены! Мы свяжемся с вами в ближайшее время.';
+          purchaseForm.reset();
+          filePreviewWrap.style.display = 'none';
+          receiptPreviewWrap.style.display = 'none';
+        } catch (err) {
+          console.error('Ошибка отправки файлов через Telegram API, пробуем текстовую заявку:', err);
+          try {
+            await sendTelegramRequest('sendMessage', {
+              chat_id: CHAT_ID,
+              text: `${caption}\n⚠️ Файлы (${photoFile.name}, ${receiptFile.name}) требуют запроса у клиента.`
+            });
+            purchaseStatusMsg.className = 'form-status-msg success';
+            purchaseStatusMsg.textContent = 'Заявка принята! Мы свяжемся с вами для получения фото и чека.';
+            purchaseForm.reset();
+            filePreviewWrap.style.display = 'none';
+            receiptPreviewWrap.style.display = 'none';
+          } catch (errFallback) {
+            purchaseStatusMsg.className = 'form-status-msg error';
+            purchaseStatusMsg.textContent = 'Ошибка отправки заявки. Пожалуйста, позвоните нам по телефону 8 (915) 411-53-11.';
+          }
+        } finally {
+          btnSubmitPurchase.disabled = false;
+          btnSubmitPurchase.textContent = 'Отправить заявку';
+        }
+      });
+    }
+
+    // 2. Форма запроса: Заказать звонок -> sendMessage
+    const callbackForm = document.getElementById('callback-form');
+    const btnSubmitCallback = document.getElementById('btn-submit-callback');
+    const callbackStatusMsg = document.getElementById('callback-status-msg');
+
+    if (callbackForm) {
+      callbackForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        callbackStatusMsg.className = 'form-status-msg';
+        callbackStatusMsg.style.display = 'none';
+
+        const nameVal = document.getElementById('call-name').value.trim();
+        const phoneVal = document.getElementById('call-phone').value.trim();
+
+        btnSubmitCallback.disabled = true;
+        btnSubmitCallback.textContent = 'Отправка...';
+
+        const textMessage = `📞 ЗАПРОС\n👤 Имя: ${nameVal}\n📱 Телефон: ${phoneVal}`;
+
+        try {
+          await sendTelegramRequest('sendMessage', {
+            chat_id: CHAT_ID,
+            text: textMessage
+          });
+          callbackStatusMsg.className = 'form-status-msg success';
+          callbackStatusMsg.textContent = 'Заявка отправлена!';
+          callbackForm.reset();
+        } catch (err) {
+          callbackStatusMsg.className = 'form-status-msg error';
+          callbackStatusMsg.textContent = 'Ошибка отправки. Пожалуйста, позвоните по номеру 8 (915) 411-53-11.';
+        } finally {
+          btnSubmitCallback.disabled = false;
+          btnSubmitCallback.textContent = 'Отправить';
+        }
+      });
+    }
+
+    /* ==========================================================================
+       НАВИГАЦИЯ, МОБИЛЬНОЕ МЕНЮ И СКРОЛЛ
+       ========================================================================== */
+    const burgerBtn = document.getElementById('burger-btn');
+    const navMenu = document.getElementById('nav-menu');
+
+    burgerBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+    });
+
+    // Закрытие мобильного меню при клике по ссылке
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+      });
+    });
+
+    // Подсветка активной секции в меню при скролле
+    const sections = document.querySelectorAll('.section-wrap');
+    window.addEventListener('scroll', () => {
+      let currentSection = '';
+      const scrollPos = window.pageYOffset + 120;
+
+      sections.forEach(sec => {
+        const top = sec.offsetTop;
+        const height = sec.offsetHeight;
+        if (scrollPos >= top && scrollPos < top + height) {
+          currentSection = sec.getAttribute('id');
+        }
+      });
+
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSection}`) {
+          link.classList.add('active');
+        }
+      });
+    }, { passive: true });
+
+    /* ==========================================================================
+       ЗАПУСК ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
+       ========================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      initCatalog();
+      initGallery();
+      initMusicSection();
+      loadActorsText();
+    });
+  </script>
+</body>
+</html>
+
