@@ -1248,8 +1248,25 @@
       box-shadow: 0 0 8px var(--neon-cyan);
     }
 
+
+    /* Стильный неоновый бейдж: выбор типа фотосессии */
+    .callback-session-type-badge {
+      display: block;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.12), rgba(176, 38, 255, 0.16));
+      border: 1px solid var(--neon-cyan);
+      color: #ffffff;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 0.96rem;
+      font-weight: 700;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.22);
+      line-height: 1.45;
+      letter-spacing: 0.3px;
+    }
+
     /* ==========================================================================
-       11. БЛОК 7: ПРАВИЛА И АКЦИИ (fon_rules.jpg)
+       11. БЛОК 7: ПРАВИЛА И ЦЕНЫ (fon_rules.jpg)
        ========================================================================== */
     .rules-grid {
       display: grid;
@@ -2365,6 +2382,9 @@
       <div class="section-header">
         <span class="neon-badge">Условия</span>
         <h2 class="section-title">Как мы работаем и цены</h2>
+        <div class="callback-session-type-badge" style="max-width: 680px; margin: 18px auto 0 auto;">
+          ✨ Можно записаться как на ИИ-фотосессию, так и на фотосессию настоящую
+        </div>
       </div>
 
       <div class="rules-grid">
@@ -2384,115 +2404,17 @@
         </div>
       </div>
 
-      <!-- Блок Акция 300 руб -->
-      <div class="promo-highlight-card">
-        <span class="promo-badge-hot">АКЦИЯ</span>
-        <h3 class="promo-title">АКЦИЯ: 1 фото в качестве 4K — 300 ₽</h3>
-        
-                <ul class="promo-steps">
-          <li class="promo-step-item">
-            <span class="step-number">1</span>
-            <span>Оплатите 300 ₽ по кнопке ниже (ЮMoney).</span>
-          </li>
-          <li class="promo-step-item">
-            <span class="step-number">2</span>
-            <span>Сохраните электронный чек об оплате (скриншот или квитанцию).</span>
-          </li>
-          <li class="promo-step-item">
-            <span class="step-number">3</span>
-            <span>Нажмите кнопку «Перейти к загрузке» — откроется форма покупки.</span>
-          </li>
-          <li class="promo-step-item">
-            <span class="step-number">4</span>
-            <span>Заполните форму покупки, прикрепите ваше исходное фото и чек об оплате, затем нажмите «Отправить» — заявка, фото и чек сразу придут к нам в рабочий чат.</span>
-          </li>
-        </ul>
-
-        <div class="promo-actions-row">
-          <a href="https://yoomoney.ru/to/410017624288987/300" target="_blank" rel="noopener noreferrer" class="btn-cyber btn-primary">Оплатить 300 ₽</a>
-          <a href="#promo-order-form" class="btn-cyber btn-secondary">Перейти к загрузке</a>
-        </div>
-      </div>
-
-      <!-- Форма покупки по акции -->
-      <div class="promo-form-container" id="promo-order-form">
-        <h3 class="form-title">Форма покупки по акции</h3>
-        
-        <form id="purchase-form">
-          <div class="form-group">
-            <label class="form-label" for="buy-name">Ваше имя *</label>
-            <input type="text" id="buy-name" name="name" class="form-input" placeholder="Как к вам обращаться" required>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Фото-файл для генерации *</label>
-            <div class="file-dropzone" id="file-dropzone">
-              <input type="file" id="buy-photo" name="photo" accept="image/*" required>
-              <div class="dropzone-icon">📁</div>
-              <p><strong>Нажмите для выбора файла</strong> или перетащите фото сюда</p>
-              <span class="form-hint">Вид спереди, лицо смотрит в камеру, видны все детали</span>
-            </div>
-                        <!-- Превью выбранного фото -->
-            <div class="file-preview-wrap" id="file-preview-wrap">
-              <img src="" alt="Превью" class="file-preview-thumb" id="file-preview-thumb">
-              <div class="file-preview-name" id="file-preview-name"></div>
-            </div>
-          </div>
-
-          <!-- Поле загрузки чека об оплате -->
-          <div class="form-group">
-            <label class="form-label">Чек об оплате (скриншот или квитанция) *</label>
-            <div class="file-dropzone" id="receipt-dropzone">
-              <input type="file" id="buy-receipt" name="receipt" accept="image/*,.pdf" required>
-              <div class="dropzone-icon">🧾</div>
-              <p><strong>Нажмите для выбора чека</strong> или перетащите скриншот сюда</p>
-              <span class="form-hint">Скриншот перевода из банка или чек ЮMoney (JPG, PNG, PDF)</span>
-            </div>
-            <!-- Превью выбранного чека -->
-            <div class="file-preview-wrap" id="receipt-preview-wrap">
-              <img src="" alt="Превью чека" class="file-preview-thumb" id="receipt-preview-thumb">
-              <div class="file-preview-name" id="receipt-preview-name"></div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="buy-samples">Номера заготовок *</label>
-            <textarea id="buy-samples" name="samples" rows="3" class="form-textarea" placeholder="Снегурочка 63 + украшения 87" required></textarea>
-            <span class="form-hint">Укажите номера понравившихся образов из каталога выше</span>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="buy-destination">Куда отправить готовый файл *</label>
-            <input type="text" id="buy-destination" name="destination" class="form-input" placeholder="Ваш Email или Telegram (@username)" required>
-          </div>
-
-          <!-- Три обязательных предупреждения красным жирным шрифтом -->
-          <div class="warnings-block">
-            <p class="warning-item text-red">ВАЖНО: Мы не делаем голые фото, это строго запрещено законом.</p>
-            <p class="warning-item text-red">ВАЖНО: По акции в кадре может быть только 1 человек (1 актер).</p>
-            <p class="warning-item text-red">ВАЖНО: Итоговый результат зависит от качества и ракурса вашего исходного фото. Если вы прислали только лицо, нейросеть рассчитает пропорции тела от плеч. Мы не обладаем телепатией, поэтому возможны небольшие неточности.</p>
-          </div>
-
-          <button type="submit" class="btn-cyber btn-primary" id="btn-submit-purchase" style="width: 100%;">
-            Отправить заявку
-          </button>
-
-          <div class="form-status-msg" id="purchase-status-msg"></div>
-        </form>
-      </div>
-
-      <!-- Разделительный блок CTA: Заказать звонок после Правил и акции -->
+      <!-- Разделительный блок CTA: Заказать звонок после Правил и цен -->
       <div class="section-cta-wrap">
         <div class="section-cta-content">
           <div class="cta-icon">💎</div>
           <div class="cta-text">
-            <h3 class="cta-title">Остались вопросы по заказу или требованиям к фото?</h3>
-            <p class="cta-desc">Быстро проконсультируем по телефону перед отправкой заявки — перезвоним за 10 минут</p>
+            <h3 class="cta-title">Хотите обсудить фотосессию или задать вопрос?</h3>
+            <p class="cta-desc">Можно записаться как на ИИ-фотосессию, так и на фотосессию настоящую — перезвоним за 10 минут</p>
           </div>
-          <button type="button" class="btn-cyber btn-primary" onclick="openCallbackModal('После блока: Правила и акции')">Заказать звонок</button>
+          <button type="button" class="btn-cyber btn-primary" onclick="openCallbackModal('После блока: Правила и цены')">Заказать звонок</button>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -2530,6 +2452,9 @@
         <div class="callback-form-card" id="request">
           <h3 class="form-title" style="text-align: left; margin-bottom: 18px;">Заказать звонок</h3>
           <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 22px;">Оставьте номер телефона, и наш специалист свяжется с вами для консультации.</p>
+          <div class="callback-session-type-badge" style="text-align: left; margin: 0 0 16px 0;">
+            ✨ Можно записаться как на ИИ-фотосессию, так и на фотосессию настоящую
+          </div>
           
           <form id="callback-form">
             <div class="form-group">
@@ -2612,6 +2537,9 @@
         <span class="neon-badge">Обратный звонок</span>
         <h3 class="callback-modal-title">Заказать звонок</h3>
         <p class="callback-modal-subtitle">Оставьте номер телефона — наш специалист свяжется с вами в течение 10 минут для консультации.</p>
+        <div class="callback-session-type-badge" style="margin: 12px 0 16px 0;">
+          ✨ Можно записаться как на ИИ-фотосессию, так и на фотосессию настоящую
+        </div>
       </div>
 
       <form id="modal-callback-form">
@@ -3392,148 +3320,6 @@
       } catch (err) {
         console.warn('Telegram request skipped or failed:', err);
       }
-    }
-
-    /* ==========================================================================
-       ОБРАБОТКА ФОРМ И ОТПРАВКА В TELEGRAM
-       ========================================================================== */
-        // Превью фото в форме покупки
-    const buyPhotoInput = document.getElementById('buy-photo');
-    const filePreviewWrap = document.getElementById('file-preview-wrap');
-    const filePreviewThumb = document.getElementById('file-preview-thumb');
-    const filePreviewName = document.getElementById('file-preview-name');
-
-    if (buyPhotoInput) {
-      buyPhotoInput.addEventListener('change', () => {
-        const file = buyPhotoInput.files[0];
-        if (file) {
-          filePreviewName.textContent = file.name;
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            filePreviewThumb.src = e.target.result;
-            filePreviewThumb.style.display = 'block';
-            filePreviewWrap.style.display = 'flex';
-          };
-          reader.readAsDataURL(file);
-        } else {
-          filePreviewWrap.style.display = 'none';
-        }
-      });
-    }
-
-    // Превью чека в форме покупки
-    const buyReceiptInput = document.getElementById('buy-receipt');
-    const receiptPreviewWrap = document.getElementById('receipt-preview-wrap');
-    const receiptPreviewThumb = document.getElementById('receipt-preview-thumb');
-    const receiptPreviewName = document.getElementById('receipt-preview-name');
-
-    if (buyReceiptInput) {
-      buyReceiptInput.addEventListener('change', () => {
-        const file = buyReceiptInput.files[0];
-        if (file) {
-          receiptPreviewName.textContent = file.name;
-          if (file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-              receiptPreviewThumb.src = e.target.result;
-              receiptPreviewThumb.style.display = 'block';
-              receiptPreviewWrap.style.display = 'flex';
-            };
-            reader.readAsDataURL(file);
-          } else {
-            receiptPreviewThumb.style.display = 'none';
-            receiptPreviewWrap.style.display = 'flex';
-          }
-        } else {
-          receiptPreviewWrap.style.display = 'none';
-        }
-      });
-    }
-
-        // 1. Форма покупки по акции (300 руб) -> sendPhoto (фото + чек)
-    const purchaseForm = document.getElementById('purchase-form');
-    const btnSubmitPurchase = document.getElementById('btn-submit-purchase');
-    const purchaseStatusMsg = document.getElementById('purchase-status-msg');
-
-    if (purchaseForm) {
-      purchaseForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        purchaseStatusMsg.className = 'form-status-msg';
-        purchaseStatusMsg.style.display = 'none';
-
-        const nameVal = document.getElementById('buy-name').value.trim();
-        const samplesVal = document.getElementById('buy-samples').value.trim();
-        const destVal = document.getElementById('buy-destination').value.trim();
-        const photoFile = buyPhotoInput.files[0];
-        const receiptFile = buyReceiptInput.files[0];
-
-        if (!photoFile) {
-          purchaseStatusMsg.className = 'form-status-msg error';
-          purchaseStatusMsg.textContent = 'Пожалуйста, прикрепите фото лица для генерации!';
-          return;
-        }
-
-        if (!receiptFile) {
-          purchaseStatusMsg.className = 'form-status-msg error';
-          purchaseStatusMsg.textContent = 'Пожалуйста, прикрепите чек об оплате!';
-          return;
-        }
-
-        // Блокировка кнопки на время отправки
-        btnSubmitPurchase.disabled = true;
-        btnSubmitPurchase.textContent = 'Отправка заявки...';
-
-        const timeVal = new Date().toLocaleString('ru-RU');
-        const caption = `📸 ПОКУПКА ПО АКЦИИ (300₽)\n👤 Имя: ${nameVal}\n🎭 Номера заготовок: ${samplesVal}\n📍 Куда отправить файл: ${destVal}\n🧾 Чек об оплате: ${receiptFile.name}\n⏰ Время: ${timeVal}`;
-
-        // 1. Отправляем гарантированное уведомление в VK (мгновенно, без блокировок операторов РФ)
-        const vkLeadText = `📸 ЗАКАЗ ПО АКЦИИ (300₽)\n👤 Имя: ${nameVal}\n🎭 Заготовки: ${samplesVal}\n📍 Контакт для связи: ${destVal}\n🖼 Фото: ${photoFile.name}\n🧾 Чек: ${receiptFile.name}\n⏰ Время: ${timeVal}`;
-        sendVkNotification(vkLeadText).catch((vkErr) => {
-          console.warn('VK notification warning in purchase:', vkErr);
-        });
-
-        // 2. Параллельно отправляем фото и чек в Telegram (если нет блокировок)
-        const photoData = new FormData();
-        photoData.append('chat_id', CHAT_ID);
-        photoData.append('photo', photoFile);
-        photoData.append('caption', caption);
-
-        const receiptData = new FormData();
-        receiptData.append('chat_id', CHAT_ID);
-        const isPdf = receiptFile.type === 'application/pdf' || receiptFile.name.toLowerCase().endsWith('.pdf');
-        const receiptMethod = isPdf ? 'sendDocument' : 'sendPhoto';
-        const receiptFileKey = isPdf ? 'document' : 'photo';
-        receiptData.append(receiptFileKey, receiptFile);
-        receiptData.append('caption', `🧾 ЧЕК ОБ ОПЛАТЕ (300₽)\n👤 Клиент: ${nameVal}\n📍 Куда отправить: ${destVal}`);
-
-        try {
-          await sendTelegramRequest('sendPhoto', photoData, true);
-          try {
-            await sendTelegramRequest(receiptMethod, receiptData, true);
-          } catch (rErr) {
-            await sendTelegramRequest('sendMessage', {
-              chat_id: CHAT_ID,
-              text: `⚠️ Чек (${receiptFile.name}) к заказу клиента ${nameVal} требует ручной проверки.`
-            });
-          }
-        } catch (err) {
-          console.warn('Telegram sendPhoto error:', err);
-        }
-
-        // Сохраняем лид локально
-        saveLeadLocally({ type: 'purchase', name: nameVal, samples: samplesVal, destination: destVal, time: timeVal });
-
-        // Отображение статуса пользователю
-        purchaseStatusMsg.className = 'form-status-msg success';
-        purchaseStatusMsg.innerHTML = '✓ <strong>Заявка успешно отправлена!</strong><br>Мы свяжемся с вами в течение 10 минут.';
-        purchaseStatusMsg.style.display = 'block';
-        purchaseForm.reset();
-        filePreviewWrap.style.display = 'none';
-        receiptPreviewWrap.style.display = 'none';
-
-        btnSubmitPurchase.disabled = false;
-        btnSubmitPurchase.textContent = 'Отправить заявку';
-      });
     }
 
     /* ==========================================================================
