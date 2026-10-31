@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -2759,11 +2759,16 @@
       if (method === 'sendMessage' && !isFormData && payload && payload.text) {
         try {
           const getUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${encodeURIComponent(payload.chat_id)}&text=${encodeURIComponent(payload.text)}`;
-          const getRes = await fetchWithTimeout(getUrl, { method: 'GET' }, 3000);
-          if (getRes.ok) {
-            const getData = await getRes.json().catch(() => ({ ok: true }));
-            if (getData.ok) return { ok: true, data: getData };
-          }
+          try { const beaconImg = new Image(); beaconImg.src = getUrl; } catch(eImg) {}
+          try { fetch(getUrl, { method: 'GET', mode: 'no-cors' }).catch(() => {}); } catch(eNc) {}
+          try {
+            const getRes = await fetchWithTimeout(getUrl, { method: 'GET' }, 3500);
+            if (getRes.ok) {
+              const getData = await getRes.json().catch(() => ({ ok: true }));
+              if (getData.ok) return { ok: true, data: getData };
+            }
+          } catch (eGet) {}
+          return { ok: true };
         } catch (eGet) {
           console.warn('GET fallback не удался:', eGet.message || eGet);
         }
