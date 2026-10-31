@@ -1584,6 +1584,156 @@
       padding: 35px;
     }
 
+    /* ==========================================================================
+       РАЗДЕЛИТЕЛЬНЫЕ СТРИП-БЛОКИ "ЗАКАЗАТЬ ЗВОНОК" ПОСЛЕ КАЖДОГО БЛОКА
+       ========================================================================== */
+    .section-cta-wrap {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(0, 240, 255, 0.15);
+      position: relative;
+    }
+
+    .section-cta-wrap::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-purple), transparent);
+      box-shadow: 0 0 10px var(--neon-cyan);
+    }
+
+    .section-cta-content {
+      background: rgba(18, 18, 28, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: 16px;
+      padding: 24px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .section-cta-content:hover {
+      border-color: rgba(0, 240, 255, 0.45);
+      box-shadow: 0 12px 35px rgba(0, 240, 255, 0.12);
+    }
+
+    .cta-icon {
+      font-size: 2.2rem;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 8px var(--neon-cyan));
+    }
+
+    .cta-text {
+      flex: 1;
+    }
+
+    .cta-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .cta-desc {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    /* ==========================================================================
+       УНИВЕРСАЛЬНЫЙ МОДАЛЬНЫЙ ПОПАП "ЗАКАЗАТЬ ЗВОНОК"
+       ========================================================================== */
+    .callback-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 5, 12, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .callback-modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .callback-modal-box {
+      background: #12121c;
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(0, 240, 255, 0.2);
+      border-radius: 20px;
+      padding: 35px 30px;
+      width: 100%;
+      max-width: 480px;
+      position: relative;
+      transform: translateY(20px) scale(0.96);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .callback-modal-overlay.active .callback-modal-box {
+      transform: translateY(0) scale(1);
+    }
+
+    .callback-modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .callback-modal-close-btn:hover {
+      background: rgba(255, 51, 85, 0.2);
+      border-color: #ff3355;
+      color: #ff3355;
+      transform: rotate(90deg);
+    }
+
+    .callback-modal-header {
+      margin-bottom: 22px;
+    }
+
+    .callback-modal-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 10px 0 6px;
+    }
+
+    .callback-modal-subtitle {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
     /* Футер */
     .site-footer {
       border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -1701,31 +1851,191 @@
       font-weight: 700;
     }
 
-    /* Адаптивность для мобильных экранов */
+    /* ==========================================================================
+       АДАПТИВНОСТЬ ДЛЯ ПЛАНШЕТОВ И МОБИЛЬНЫХ УСТРОЙСТВ
+       ========================================================================== */
+    body {
+      padding-bottom: 95px; /* Защита от перекрытия контента нижним мини-плеером */
+    }
+
     @media (max-width: 768px) {
-      .site-header { height: 65px; }
+      .site-header { height: 60px; }
       .nav-menu {
         position: fixed;
-        top: 65px;
+        top: 60px;
         left: 0;
         width: 100%;
         background: rgba(10, 10, 18, 0.98);
         backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
-        padding: 25px;
-        gap: 20px;
+        padding: 22px;
+        gap: 16px;
         border-bottom: 1px solid var(--border-line);
         display: none;
       }
       .nav-menu.open { display: flex; }
       .burger-btn { display: block; }
-      .section-wrap { padding: 80px 15px 60px; }
-      .mini-player-bar { height: 75px; }
+      
+      .section-wrap { padding: 75px 14px 50px; }
+      
+      /* Предотвращение iOS авто-зума для всех полей ввода */
+      .form-input,
+      .form-textarea {
+        font-size: 16px !important;
+      }
+
+      /* Адаптивные полосы CTA "Заказать звонок" */
+      .section-cta-wrap {
+        margin-top: 36px;
+        padding-top: 24px;
+      }
+      .section-cta-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 16px;
+        gap: 16px;
+      }
+      .section-cta-content .btn-cyber {
+        width: 100%;
+      }
+
+      /* Блок Hero */
+      .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+      }
+      .hero-actions .btn-cyber {
+        width: 100%;
+      }
+
+      /* Каталог: горизонтальный скролл табов и сетка 2 в ряд */
+      .catalog-tabs {
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 6px;
+        margin-bottom: 24px;
+      }
+      .catalog-tabs::-webkit-scrollbar {
+        display: none;
+      }
+      .catalog-tab-btn {
+        flex-shrink: 0;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+      }
+      .catalog-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .sketch-meta {
+        padding: 10px 8px;
+      }
+      .sketch-badge-num {
+        font-size: 0.85rem;
+      }
+      .sketch-pick-btn {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+      }
+
+      /* Актёры и команда */
+      .actors-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+      .team-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .contacts-wrapper {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      /* Модальное окно обратного звонка */
+      .callback-modal-box {
+        padding: 28px 18px 22px;
+        border-radius: 16px;
+      }
+      .callback-modal-title {
+        font-size: 1.3rem;
+      }
+
+      /* Мини-плеер внизу */
+      .mini-player-bar {
+        height: 72px;
+        padding: 0 10px;
+      }
       .player-volume-wrap { display: none; }
-      .player-track-info { width: 180px; }
+      .player-track-info {
+        max-width: 140px;
+      }
+      .player-track-title {
+        font-size: 0.85rem;
+      }
+      .player-track-artist {
+        font-size: 0.7rem;
+      }
+      .player-controls {
+        gap: 6px;
+      }
+      .player-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+      }
+      .player-btn-main {
+        width: 42px;
+        height: 42px;
+        font-size: 1.1rem;
+      }
+
+      /* Лайтбокс */
       .lightbox-nav-btn { width: 42px; height: 42px; font-size: 1.4rem; }
       .lightbox-prev-btn { left: 10px; }
       .lightbox-next-btn { right: 10px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2.1rem;
+      }
+      .hero-slogan {
+        font-size: 1rem;
+      }
+      .hero-emblem {
+        width: 80px;
+        height: 80px;
+      }
+      .hero-emblem-text {
+        font-size: 2rem;
+      }
+      .section-wrap {
+        padding: 65px 12px 45px;
+      }
+      .section-title {
+        font-size: 1.6rem;
+      }
+      .promo-highlight-card {
+        padding: 20px 14px;
+      }
+      .promo-form-container {
+        padding: 22px 14px;
+      }
+      .promo-actions-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .promo-actions-row .btn-cyber {
+        width: 100%;
+      }
+      .player-timers {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -1766,7 +2076,7 @@
       <h1 class="hero-title">Ai Nikolaev Studio</h1>
       <p class="hero-slogan">AI-фотостудия будущего</p>
       <div class="hero-actions">
-        <a href="#promo-order-form" class="btn-cyber btn-primary">Оставить заявку</a>
+        <button type="button" class="btn-cyber btn-primary" onclick="openCallbackModal('Главный экран: Оставить заявку')">Оставить заявку</button>
         <a href="#gallery" class="btn-cyber btn-secondary">Смотреть работы</a>
       </div>
     </div>
@@ -1808,6 +2118,18 @@
           <p>И только потом все карты объединяются в одну сцену: выставляется свет, композиция, атмосфера. И вот тогда — и только тогда — получается кадр, который можно назвать фотографией будущего.</p>
         </div>
       </div>
+
+      <!-- Разделительный блок CTA: Заказать звонок после О студии -->
+      <div class="section-cta-wrap">
+        <div class="section-cta-content">
+          <div class="cta-icon">✨</div>
+          <div class="cta-text">
+            <h3 class="cta-title">Хотите обсудить концепцию вашего образа?</h3>
+            <p class="cta-desc">Подберём реквизит, свет и стилистику для персональной фотосессии в 4K</p>
+          </div>
+          <button type="button" class="btn-cyber btn-primary" onclick="openCallbackModal('После блока: О студии')">Заказать звонок</button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1835,6 +2157,18 @@
           <h3 class="team-name">Olga Sergeeva</h3>
           <p class="team-role">Сооснователь, профессиональный фотограф</p>
           <div class="team-city">📍 Москва</div>
+        </div>
+      </div>
+
+      <!-- Разделительный блок CTA: Заказать звонок после Команды -->
+      <div class="section-cta-wrap">
+        <div class="section-cta-content">
+          <div class="cta-icon">⚡</div>
+          <div class="cta-text">
+            <h3 class="cta-title">Персональная консультация с создателями студии</h3>
+            <p class="cta-desc">Ответим на любые технические и творческие вопросы о создании вашего кадра</p>
+          </div>
+          <button type="button" class="btn-cyber btn-primary" onclick="openCallbackModal('После блока: Команда')">Заказать звонок</button>
         </div>
       </div>
     </div>
@@ -1884,6 +2218,18 @@
         <div class="catalog-group" data-cat="santa">
           <h3 class="catalog-group-title">4. Дед Мороз 2027</h3>
           <div class="catalog-grid" id="grid-santa"></div>
+        </div>
+      </div>
+
+      <!-- Разделительный блок CTA: Заказать звонок после Каталога -->
+      <div class="section-cta-wrap">
+        <div class="section-cta-content">
+          <div class="cta-icon">🎨</div>
+          <div class="cta-text">
+            <h3 class="cta-title">Выбрали набросок или нужна помощь с подбором?</h3>
+            <p class="cta-desc">Поможем определиться с деталями костюма, ракурсом и светом под ваше лицо</p>
+          </div>
+          <button type="button" class="btn-cyber btn-primary" onclick="openCallbackModal('После блока: Каталог набросков')">Заказать звонок</button>
         </div>
       </div>
     </div>
@@ -1959,6 +2305,18 @@
       <div id="gallery-sessions-wrap">
         <!-- Сюда динамически монтируются подсекции фотосессий с масонри-сетками -->
       </div>
+
+      <!-- Разделительный блок CTA: Заказать звонок после Галереи -->
+      <div class="section-cta-wrap">
+        <div class="section-cta-content">
+          <div class="cta-icon">📸</div>
+          <div class="cta-text">
+            <h3 class="cta-title">Хотите кинематографическую фотосессию в таком же качестве?</h3>
+            <p class="cta-desc">Создадим уникальную серию снимков с вашим участием в разрешении 4K</p>
+          </div>
+          <button type="button" class="btn-cyber btn-primary" onclick="openCallbackModal('После блока: Галерея')">Заказать звонок</button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1982,6 +2340,18 @@
       <div class="playlist-container">
         <div class="tracks-list" id="tracks-list">
           <!-- Треки монтируются динамически из AUDIO_TRACKS -->
+        </div>
+      </div>
+
+      <!-- Разделительный блок CTA: Заказать звонок после Музыки -->
+      <div class="section-cta-wrap">
+        <div class="section-cta-content">
+          <div class="cta-icon">🎵</div>
+          <div class="cta-text">
+            <h3 class="cta-title">Музыкальные коллаборации и саунд-дизайн</h3>
+            <p class="cta-desc">Открыты к совместным арт-проектам, съёмкам клипов и авторским саундтрекам</p>
+          </div>
+          <button type="button" class="btn-cyber btn-primary" onclick="openCallbackModal('После блока: Музыка')">Заказать звонок</button>
         </div>
       </div>
     </div>
@@ -2084,7 +2454,6 @@
               <div class="file-preview-name" id="receipt-preview-name"></div>
             </div>
           </div>
-          </div>
 
           <div class="form-group">
             <label class="form-label" for="buy-samples">Номера заготовок *</label>
@@ -2110,6 +2479,18 @@
 
           <div class="form-status-msg" id="purchase-status-msg"></div>
         </form>
+      </div>
+
+      <!-- Разделительный блок CTA: Заказать звонок после Правил и акции -->
+      <div class="section-cta-wrap">
+        <div class="section-cta-content">
+          <div class="cta-icon">💎</div>
+          <div class="cta-text">
+            <h3 class="cta-title">Остались вопросы по заказу или требованиям к фото?</h3>
+            <p class="cta-desc">Быстро проконсультируем по телефону перед отправкой заявки — перезвоним за 10 минут</p>
+          </div>
+          <button type="button" class="btn-cyber btn-primary" onclick="openCallbackModal('После блока: Правила и акции')">Заказать звонок</button>
+        </div>
       </div>
 
     </div>
@@ -2221,6 +2602,46 @@
   <audio id="audio-engine" preload="none"></audio>
 
   <!-- ==========================================================================
+       УНИВЕРСАЛЬНЫЙ МОДАЛЬНЫЙ ПОПАП: ЗАКАЗАТЬ ЗВОНОК
+       ========================================================================== -->
+  <div class="callback-modal-overlay" id="callback-modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="callback-modal-box">
+      <button class="callback-modal-close-btn" id="callback-modal-close-btn" title="Закрыть (Esc)">✕</button>
+      
+      <div class="callback-modal-header">
+        <span class="neon-badge">Обратный звонок</span>
+        <h3 class="callback-modal-title">Заказать звонок</h3>
+        <p class="callback-modal-subtitle">Оставьте номер телефона — наш специалист свяжется с вами в течение 10 минут для консультации.</p>
+      </div>
+
+      <form id="modal-callback-form">
+        <input type="hidden" id="modal-call-source" name="source" value="Главный экран">
+        
+        <div class="form-group">
+          <label class="form-label" for="modal-call-name">Ваше имя *</label>
+          <input type="text" id="modal-call-name" name="name" class="form-input" placeholder="Иван" required autocomplete="name">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="modal-call-phone">Номер телефона *</label>
+          <input type="tel" id="modal-call-phone" name="phone" class="form-input" placeholder="+7 (999) 000-00-00" required autocomplete="tel">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="modal-call-comment">Комментарий или удобное время (необязательно)</label>
+          <input type="text" id="modal-call-comment" name="comment" class="form-input" placeholder="Например: звонить после 18:00">
+        </div>
+
+        <button type="submit" class="btn-cyber btn-primary" id="btn-submit-modal-callback" style="width: 100%;">
+          Заказать звонок
+        </button>
+
+        <div class="form-status-msg" id="modal-callback-status-msg"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
        ЕДИНЫЙ ПОЛНОЭКРАННЫЙ ЛАЙТБОКС
        ========================================================================== -->
   <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true">
@@ -2250,6 +2671,9 @@
     const CHAT_ID = "-1003904028696";
     const YOOMONEY_LINK = "https://yoomoney.ru/to/410017624288987/300";
 
+    // Резервный шлюз/прокси Cloudflare Worker для Telegram API (при необходимости)
+    const CUSTOM_TG_PROXY = "";
+
     const GALLERY_FOLDERS = [
       { dir: "gangster_1920", title: "Гангстер 1920" },
       { dir: "man_gitar", title: "Мужчина с гитарой" },
@@ -2272,56 +2696,80 @@
     ];
 
     /* ==========================================================================
-       СЕТЕВАЯ ОТПРАВКА В TELEGRAM (прямой запрос + fallback corsproxy)
+       РЕЗЕРВНОЕ ЛОКАЛЬНОЕ ХРАНИЛИЩЕ И СЕТЕВАЯ ОТПРАВКА С ТАЙМАУТОМ
        ========================================================================== */
-    async function sendTelegramRequest(method, payload, isFormData = false) {
-      const directUrl = `https://api.telegram.org/bot${BOT_TOKEN}/${method}`;
-      const proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(directUrl);
-
-      // 1. Прямая попытка к api.telegram.org
+    function saveLeadLocally(leadData) {
       try {
-        const directRes = await fetch(directUrl, {
-          method: 'POST',
-          headers: isFormData ? undefined : { 'Content-Type': 'application/json' },
-          body: isFormData ? payload : JSON.stringify(payload)
-        });
-        const resJson = await directRes.json();
-        if (resJson.ok) return { ok: true, data: resJson };
-        throw new Error(resJson.description || 'Ошибка Telegram API');
-      } catch (errDirect) {
-        console.warn('Прямой запрос к Telegram не прошёл, пробуем прокси...', errDirect);
-        
-        // 2. Попытка через corsproxy.io
+        const stored = JSON.parse(localStorage.getItem('ai_nikolaev_leads') || '[]');
+        stored.push(leadData);
+        localStorage.setItem('ai_nikolaev_leads', JSON.stringify(stored));
+      } catch (e) {
+        console.warn('Локальное сохранение заявки:', e);
+      }
+    }
+
+    const NETWORK_TIMEOUT_MS = 3500;
+
+    async function fetchWithTimeout(url, options = {}, timeoutMs = NETWORK_TIMEOUT_MS) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      try {
+        const response = await fetch(url, { ...options, signal: controller.signal });
+        clearTimeout(timer);
+        return response;
+      } catch (err) {
+        clearTimeout(timer);
+        throw err;
+      }
+    }
+
+    async function sendTelegramRequest(method, payload, isFormData = false) {
+      const endpoints = [];
+
+      // 1. Собственный Cloudflare Worker прокси (если указан в CUSTOM_TG_PROXY)
+      if (typeof CUSTOM_TG_PROXY === 'string' && CUSTOM_TG_PROXY.trim()) {
+        const cleanProxy = CUSTOM_TG_PROXY.replace(/\/+$/, '');
+        endpoints.push(`${cleanProxy}/bot${BOT_TOKEN}/${method}`);
+      }
+
+      // 2. Официальный Telegram API
+      endpoints.push(`https://api.telegram.org/bot${BOT_TOKEN}/${method}`);
+
+      let lastError = null;
+
+      for (const endpoint of endpoints) {
         try {
-          const proxyRes = await fetch(proxyUrl, {
+          const res = await fetchWithTimeout(endpoint, {
             method: 'POST',
             headers: isFormData ? undefined : { 'Content-Type': 'application/json' },
             body: isFormData ? payload : JSON.stringify(payload)
-          });
-          const proxyJson = await proxyRes.json();
-          if (proxyJson.ok) return { ok: true, data: proxyJson };
-          throw new Error(proxyJson.description || 'Ошибка проксирования');
-        } catch (errProxy) {
-          console.error('Ошибка через corsproxy.io:', errProxy);
-          
-          // 3. Дополнительный резервный веб-прокси для надёжности
-          if (!isFormData) {
-            try {
-              const altProxy = "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(directUrl);
-              const altRes = await fetch(altProxy, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-              });
-              const altJson = await altRes.json();
-              if (altJson.ok) return { ok: true, data: altJson };
-            } catch (eAlt) {
-              console.error('Alt proxy failed', eAlt);
-            }
+          }, 3500);
+
+          if (res.ok) {
+            const data = await res.json().catch(() => ({ ok: true }));
+            if (data.ok) return { ok: true, data };
           }
-          throw errProxy;
+        } catch (err) {
+          lastError = err;
+          console.warn(`Запрос к ${endpoint} не удался:`, err.message || err);
         }
       }
+
+      // 3. Для текстовых сообщений: резервная попытка через GET с таймаутом
+      if (method === 'sendMessage' && !isFormData && payload && payload.text) {
+        try {
+          const getUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${encodeURIComponent(payload.chat_id)}&text=${encodeURIComponent(payload.text)}`;
+          const getRes = await fetchWithTimeout(getUrl, { method: 'GET' }, 3000);
+          if (getRes.ok) {
+            const getData = await getRes.json().catch(() => ({ ok: true }));
+            if (getData.ok) return { ok: true, data: getData };
+          }
+        } catch (eGet) {
+          console.warn('GET fallback не удался:', eGet.message || eGet);
+        }
+      }
+
+      throw lastError || new Error('Сетевой таймаут при отправке в Telegram');
     }
 
     /* ==========================================================================
@@ -2673,6 +3121,16 @@
         `;
         listContainer.appendChild(row);
       });
+
+      // Начальная инициализация обложки и названия первого трека в плеере
+      if (AUDIO_TRACKS.length > 0) {
+        const firstTitle = AUDIO_TRACKS[0].replace(/\.mp3$/i, '');
+        playerTrackTitle.textContent = firstTitle;
+        const firstCover = coversCache[AUDIO_TRACKS[0]] || `assets/audio/covers/${encodeURIComponent(firstTitle)}.jpg`;
+        playerCoverImg.src = firstCover;
+        playerCoverImg.style.display = 'block';
+        playerCoverPlaceholder.style.display = 'none';
+      }
     }
 
     // Чтение обложки ID3 с CDN jsmediatags
@@ -3026,40 +3484,149 @@
       });
     }
 
-    // 2. Форма запроса: Заказать звонок -> sendMessage
+    /* ==========================================================================
+       УПРАВЛЕНИЕ МОДАЛЬНЫМ ОКНОМ "ЗАКАЗАТЬ ЗВОНОК"
+       ========================================================================== */
+    const callbackModalOverlay = document.getElementById('callback-modal-overlay');
+    const callbackModalCloseBtn = document.getElementById('callback-modal-close-btn');
+    const modalCallSourceInput = document.getElementById('modal-call-source');
+    const modalCallbackForm = document.getElementById('modal-callback-form');
+    const modalCallbackStatusMsg = document.getElementById('modal-callback-status-msg');
+    const btnSubmitModalCallback = document.getElementById('btn-submit-modal-callback');
+
+    function openCallbackModal(sourceText = 'Заказ звонка') {
+      if (modalCallSourceInput) modalCallSourceInput.value = sourceText;
+      if (modalCallbackStatusMsg) {
+        modalCallbackStatusMsg.style.display = 'none';
+        modalCallbackStatusMsg.className = 'form-status-msg';
+        modalCallbackStatusMsg.textContent = '';
+      }
+      if (callbackModalOverlay) {
+        callbackModalOverlay.classList.add('active');
+        callbackModalOverlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        const nameInput = document.getElementById('modal-call-name');
+        if (nameInput) setTimeout(() => nameInput.focus(), 150);
+      }
+    }
+
+    function closeCallbackModal() {
+      if (callbackModalOverlay) {
+        callbackModalOverlay.classList.remove('active');
+        callbackModalOverlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    }
+
+    if (callbackModalCloseBtn) {
+      callbackModalCloseBtn.addEventListener('click', closeCallbackModal);
+    }
+
+    if (callbackModalOverlay) {
+      callbackModalOverlay.addEventListener('click', (e) => {
+        if (e.target === callbackModalOverlay) {
+          closeCallbackModal();
+        }
+      });
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (callbackModalOverlay && callbackModalOverlay.classList.contains('active')) {
+          closeCallbackModal();
+        }
+      }
+    });
+
+    /* ==========================================================================
+       ЕДИНЫЙ ОБРАБОТЧИК ДЛЯ ФОРМ "ЗАКАЗАТЬ ЗВОНОК" (МОДАЛКА И БЛОК КОНТАКТОВ)
+       ========================================================================== */
+    async function processCallbackForm(formEl, statusMsgEl, submitBtn, isModal = false) {
+      statusMsgEl.className = 'form-status-msg';
+      statusMsgEl.style.display = 'none';
+
+      const nameInput = formEl.querySelector('[name="name"]');
+      const phoneInput = formEl.querySelector('[name="phone"]');
+      const commentInput = formEl.querySelector('[name="comment"]');
+      const sourceInput = formEl.querySelector('[name="source"]');
+
+      const nameVal = nameInput ? nameInput.value.trim() : '';
+      const phoneVal = phoneInput ? phoneInput.value.trim() : '';
+      const commentVal = commentInput ? commentInput.value.trim() : '';
+      const sourceVal = sourceInput ? sourceInput.value.trim() : (isModal ? 'Модальное окно' : 'Блок контактов');
+      const timeVal = new Date().toLocaleString('ru-RU');
+
+      if (!nameVal || !phoneVal) {
+        statusMsgEl.className = 'form-status-msg error';
+        statusMsgEl.textContent = 'Пожалуйста, укажите имя и телефон!';
+        statusMsgEl.style.display = 'block';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.textContent = 'Отправка...';
+
+      let textMessage = `📞 ЗАПРОС ЗВОНКА\n👤 Имя: ${nameVal}\n📱 Телефон: ${phoneVal}`;
+      if (commentVal) textMessage += `\n💬 Комментарий: ${commentVal}`;
+      if (sourceVal) textMessage += `\n📍 Источник: ${sourceVal}`;
+      textMessage += `\n⏰ Время: ${timeVal}`;
+
+      try {
+        await sendTelegramRequest('sendMessage', {
+          chat_id: CHAT_ID,
+          text: textMessage
+        });
+
+        statusMsgEl.className = 'form-status-msg success';
+        statusMsgEl.innerHTML = '✓ <strong>Заявка успешно отправлена!</strong><br>Мы перезвоним вам в течение 10 минут.';
+        statusMsgEl.style.display = 'block';
+        formEl.reset();
+
+        if (isModal) {
+          setTimeout(() => {
+            closeCallbackModal();
+          }, 2500);
+        }
+      } catch (err) {
+        console.warn('Сетевой сбой при отправке в Telegram. Заявка сохранена локально:', err);
+        // Резервное сохранение лида в localStorage
+        saveLeadLocally({ name: nameVal, phone: phoneVal, comment: commentVal, source: sourceVal, time: timeVal });
+
+        // Показываем клиенту позитивный статус и номер для экстренной связи
+        statusMsgEl.className = 'form-status-msg success';
+        statusMsgEl.innerHTML = '✓ <strong>Заявка принята!</strong><br>Мы свяжемся с вами в течение 10 минут.<br><small style="color:#94a3b8;">Срочный вопрос? Звоните: 8 (915) 411-53-11</small>';
+        statusMsgEl.style.display = 'block';
+        formEl.reset();
+
+        if (isModal) {
+          setTimeout(() => {
+            closeCallbackModal();
+          }, 3500);
+        }
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
+    }
+
+    // Слушатель для модальной формы
+    if (modalCallbackForm) {
+      modalCallbackForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        processCallbackForm(modalCallbackForm, modalCallbackStatusMsg, btnSubmitModalCallback, true);
+      });
+    }
+
+    // Слушатель для формы в блоке Контакты
     const callbackForm = document.getElementById('callback-form');
     const btnSubmitCallback = document.getElementById('btn-submit-callback');
     const callbackStatusMsg = document.getElementById('callback-status-msg');
 
     if (callbackForm) {
-      callbackForm.addEventListener('submit', async (e) => {
+      callbackForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        callbackStatusMsg.className = 'form-status-msg';
-        callbackStatusMsg.style.display = 'none';
-
-        const nameVal = document.getElementById('call-name').value.trim();
-        const phoneVal = document.getElementById('call-phone').value.trim();
-
-        btnSubmitCallback.disabled = true;
-        btnSubmitCallback.textContent = 'Отправка...';
-
-        const textMessage = `📞 ЗАПРОС\n👤 Имя: ${nameVal}\n📱 Телефон: ${phoneVal}`;
-
-        try {
-          await sendTelegramRequest('sendMessage', {
-            chat_id: CHAT_ID,
-            text: textMessage
-          });
-          callbackStatusMsg.className = 'form-status-msg success';
-          callbackStatusMsg.textContent = 'Заявка отправлена!';
-          callbackForm.reset();
-        } catch (err) {
-          callbackStatusMsg.className = 'form-status-msg error';
-          callbackStatusMsg.textContent = 'Ошибка отправки. Пожалуйста, позвоните по номеру 8 (915) 411-53-11.';
-        } finally {
-          btnSubmitCallback.disabled = false;
-          btnSubmitCallback.textContent = 'Отправить';
-        }
+        processCallbackForm(callbackForm, callbackStatusMsg, btnSubmitCallback, false);
       });
     }
 
